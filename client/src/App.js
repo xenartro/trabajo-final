@@ -1,23 +1,33 @@
-import logo from './logo.svg';
 import './App.css';
+import { init, send } from 'services/commands';
+import { useState, useEffect } from 'react';
 
 function App() {
+  const [command, setCommand] = useState('');
+
+  function handleChange(e) {
+    setCommand(e.currentTarget.value);
+  }
+
+  function submit(e) {
+    e.preventDefault();
+
+    send(command);
+
+    setCommand('');
+  }
+
+  useEffect(() => {
+    init();
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <form onSubmit={submit}>
+        <input type="text" value={command} onChange={handleChange} />
+
+        <button type="submit">Enviar</button>
+      </form>
     </div>
   );
 }
