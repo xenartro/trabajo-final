@@ -1,0 +1,12 @@
+{
+  "name": "software-intermediario",
+  "version": "1.0.0",
+  "description": "Software Intermediario",
+  "main": "app.js",
+  "author": "Matias Wenceslao Chomicki",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "socket.io": "^2.3.0"
+  }
+}
