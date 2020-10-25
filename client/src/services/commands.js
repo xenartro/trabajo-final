@@ -6,9 +6,6 @@ export function init() {
   socket = io("ws://localhost", {
     path: '/middleware',
     reconnectionDelayMax: 10000,
-    query: {
-      auth: "123"
-    }
   });
 }
 
