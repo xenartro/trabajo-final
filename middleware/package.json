@@ -8,5 +8,11 @@
   "private": true,
   "dependencies": {
     "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "node-dev": "^6.2.0"
+  },
+  "scripts": {
+    "start": "node-dev app.js"
   }
 }
