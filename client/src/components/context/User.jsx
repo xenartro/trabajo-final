@@ -9,18 +9,15 @@ const UserContextProvider = ({ children }) => {
   const value = {
     user,
     set: (user) => {
-      setUser(user);
-      storeUser(user);
+      setUser(storeUser(user));
     }
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }
 
-export const useUser = () => {
-  const context = useContext(UserContext);
-
-  return context?.user;
+export const useUserContext = () => {
+  return useContext(UserContext);
 }
 
 export default UserContextProvider;

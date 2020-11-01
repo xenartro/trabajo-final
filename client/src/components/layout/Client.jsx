@@ -1,5 +1,5 @@
-import { init, send } from 'services/commands';
-import { useState, useEffect } from 'react';
+import { send } from 'services/commands';
+import { useState } from 'react';
 import { Accordion, Card, Container, Row, Col } from 'react-bootstrap';
 
 const ClientLayout = () => {
@@ -16,11 +16,6 @@ const ClientLayout = () => {
 
     setCommand('');
   }
-
-  useEffect(() => {
-    init();
-  }, []);
-
 
   return (
     <Container fluid>

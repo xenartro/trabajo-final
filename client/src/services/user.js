@@ -17,7 +17,9 @@ export function getUser() {
 }
 
 export function setUser(user) {
-  currentUser = user;
+  currentUser = new User(user);
 
   localStorage.setItem('user', JSON.stringify(user));
+
+  return currentUser;
 }
