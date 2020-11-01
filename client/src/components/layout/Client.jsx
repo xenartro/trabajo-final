@@ -1,9 +1,17 @@
+import { Accordion, Card, Container, Row, Col } from 'react-bootstrap';
+import { isConnected } from 'services/connection';
+import { Redirect } from 'react-router-dom';
 import { send } from 'services/commands';
 import { useState } from 'react';
-import { Accordion, Card, Container, Row, Col } from 'react-bootstrap';
+
+const states = {
+  OFFLINE: 0,
+  CONNECTED: 1,
+}
 
 const ClientLayout = () => {
   const [command, setCommand] = useState('');
+  const [state, setState] = useState(isConnected() ? states.CONNECTED : states.OFFLINE);
 
   function handleChange(e) {
     setCommand(e.currentTarget.value);
@@ -15,6 +23,10 @@ const ClientLayout = () => {
     send(command);
 
     setCommand('');
+  }
+
+  if (state === states.OFFLINE) {
+    return <Redirect to="/" />;
   }
 
   return (
