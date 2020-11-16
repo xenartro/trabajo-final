@@ -6,6 +6,10 @@ export function connect(user, callback) {
   initCommandsService();
 
   handleResponse('identify', () => {
+    console.log('User identified');
+  });
+
+  handleResponse('connected', () => {
     connected = true;
 
     callback();

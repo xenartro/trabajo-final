@@ -1,7 +1,8 @@
 const server = require('http').createServer();
+const irc = require('irc');
 
+const sockets = {};
 const clients = {};
-const connections = {};
 
 const io = require('socket.io')(server, {
   path: '/middleware',
@@ -20,9 +21,27 @@ io.on('connection', (socket) => {
   socket.on('command', (command) => {
     switch (command.command) {
       case 'identify':
-        clients[command.payload.id] = clients[command.payload.id] || socket;
+        sockets[command.payload.id] = sockets[command.payload.id] || socket;
 
-        socket.emit('response', { response: 'identify', sucess: true });
+        if (clients[command.payload.id]) {
+          socket.emit('response', { response: 'identify', sucess: true });
+          socket.emit('response', { response: 'connected', sucess: true });
+
+          return;
+        }
+
+        const client = new irc.Client('irc.freenode.org', command.payload.nickname, {
+            realName: command.payload.name,
+            debug: true,
+            showErrors: true,
+            encoding: 'UTF-8'
+        });
+
+        clients[command.payload.id]
+
+        client.addListener('registered', () => {
+          socket.emit('response', { response: 'connected', sucess: true });
+        });
       break;
     }
   });

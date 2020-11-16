@@ -194,10 +194,32 @@ has@^1.0.3:
   dependencies:
     function-bind "^1.1.1"
 
+iconv@~2.2.1:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/iconv/-/iconv-2.2.3.tgz#e084d60eeb7d73da7f0a9c096e4c8abe090bfaed"
+  integrity sha1-4ITWDut9c9p/CpwJbkyKvgkL+u0=
+  dependencies:
+    nan "^2.3.5"
+
 indexof@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/indexof/-/indexof-0.0.1.tgz#82dc336d232b9062179d05ab3293a66059fd435d"
   integrity sha1-gtwzbSMrkGIXnQWrMpOmYFn9Q10=
+
+irc-colors@^1.1.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/irc-colors/-/irc-colors-1.5.0.tgz#08834c01ead88b0fd88386a5f2af8f2b0bb963fb"
+  integrity sha512-HtszKchBQTcqw1DC09uD7i7vvMayHGM1OCo6AHt5pkgZEyo99ClhHTMJdf+Ezc9ovuNNxcH89QfyclGthjZJOw==
+
+irc@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/irc/-/irc-0.5.2.tgz#3714f4768365a96d0b2f776bc91166beb2464bbc"
+  integrity sha1-NxT0doNlqW0LL3dryRFmvrJGS7w=
+  dependencies:
+    irc-colors "^1.1.0"
+  optionalDependencies:
+    iconv "~2.2.1"
+    node-icu-charset-detector "~0.2.0"
 
 is-core-module@^2.0.0:
   version "2.0.0"
@@ -248,6 +270,11 @@ ms@^2.1.1:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
+nan@^2.3.3, nan@^2.3.5:
+  version "2.14.2"
+  resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.2.tgz#f5376400695168f4cc694ac9393d0c9585eeea19"
+  integrity sha512-M2ufzIiINKCuDfBSAUr1vWQ+vuVcA9kqx8JJUsbQi6yf1uGRyb7HfpdfUr5qLXf3B/t8dPvcjhKMmlfnP47EzQ==
+
 negotiator@0.6.2:
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.2.tgz#feacf7ccf525a77ae9634436a64883ffeca346fb"
@@ -265,6 +292,13 @@ node-dev@^6.2.0:
     node-notifier "^5.4.0"
     resolve "^1.0.0"
     semver "^7.3.2"
+
+node-icu-charset-detector@~0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/node-icu-charset-detector/-/node-icu-charset-detector-0.2.0.tgz#c2320da374ddcb671fc54cb4a0e041e156ffd639"
+  integrity sha1-wjINo3Tdy2cfxUy0oOBB4Vb/1jk=
+  dependencies:
+    nan "^2.3.3"
 
 node-notifier@^5.4.0:
   version "5.4.3"
