@@ -34,9 +34,9 @@ const Start = () => {
     setState(states.CONNECTING);
 
     try {
-      connect();
-
-      setState(states.SUCCESS);
+      connect(user, () => {
+        setState(states.SUCCESS);
+      });
     } catch (e) {
       console.error(e);
 
