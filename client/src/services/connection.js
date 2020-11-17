@@ -2,17 +2,22 @@ import { init as initCommandsService, send as sendCommand, handleResponse  } fro
 
 let connected = false;
 
-export function connect(user, callback) {
+export function connect(user, onSuccess, onError) {
   initCommandsService();
 
   handleResponse('identify', () => {
     console.log('User identified');
   });
 
-  handleResponse('connected', () => {
-    connected = true;
+  handleResponse('connection', (result) => {
+    if (result.success) {
+      connected = true;
+      onSuccess();
 
-    callback();
+      return;
+    }
+
+    onError();
   })
 
   sendCommand('identify', user);

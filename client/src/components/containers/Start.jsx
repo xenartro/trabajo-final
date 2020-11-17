@@ -36,6 +36,8 @@ const Start = () => {
     try {
       connect(user, () => {
         setState(states.SUCCESS);
+      }, () => {
+        setState(states.ERROR);
       });
     } catch (e) {
       console.error(e);
