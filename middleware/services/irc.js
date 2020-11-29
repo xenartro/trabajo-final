@@ -2,9 +2,9 @@ const irc = require('irc');
 
 const clients = {};
 
-module.exports.connect = function(user, onSuccess, onError) {
+module.exports.connect = function(user, onSuccess, onError, onMessage) {
   if (clients[user.id]) {
-    onSucces();
+    onSuccess();
 
     return;
   }
@@ -21,6 +21,14 @@ module.exports.connect = function(user, onSuccess, onError) {
   client.addListener('registered', () => {
     onSuccess();
   });
+
+  client.addListener('message', (nick, to, text, message) =>  {
+    onMessage(nick, to, text);
+  })
+}
+
+module.exports.join = function (userId, channel) {
+  clients[userId].join(channel);
 }
 
 module.exports.disconnect = function (userId) {

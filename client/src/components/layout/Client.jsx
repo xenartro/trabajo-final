@@ -1,8 +1,8 @@
 import { Accordion, Card, Container, Row, Col } from 'react-bootstrap';
 import { isConnected } from 'services/connection';
 import { Redirect } from 'react-router-dom';
-import { send } from 'services/commands';
-import { useState } from 'react';
+import { parseAndSend, registerMessageHandler } from 'services/commands';
+import { useState, useEffect } from 'react';
 
 const states = {
   OFFLINE: 0,
@@ -12,6 +12,7 @@ const states = {
 const ClientLayout = () => {
   const [command, setCommand] = useState('');
   const [state, setState] = useState(isConnected() ? states.CONNECTED : states.OFFLINE);
+  const [messages, setMessages] = useState([]);
 
   function handleChange(e) {
     setCommand(e.currentTarget.value);
@@ -20,10 +21,19 @@ const ClientLayout = () => {
   function submit(e) {
     e.preventDefault();
 
-    send(command);
+    parseAndSend(command);
 
     setCommand('');
   }
+
+  useEffect(() => {
+    registerMessageHandler((from, to, message) => {
+      setMessages([...messages, { from, to, message }]);
+    });
+    return () => {
+      registerMessageHandler(null);
+    }
+  }, []); // eslint-disable-line
 
   if (state === states.OFFLINE) {
     return <Redirect to="/" />;
@@ -61,7 +71,9 @@ const ClientLayout = () => {
 
         </Col>
         <Col>
-          Lista de mensajes...
+          {messages.map((message, i) => (
+            <div key={i}>{message.from} -> {message.to}: {message.message}</div>
+          ))}
         </Col>
       </Row>
       <Row>

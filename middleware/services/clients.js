@@ -24,7 +24,16 @@ io.on('connection', (socket) => {
     console.log(`a user disconnected`);
   });
 
+  function onMessage(nick, to, message) {
+    socket.emit('message', {
+      from: nick,
+      to,
+      message
+    });
+  }
+
   socket.on('command', (command) => {
+    console.log(command);
     switch (command.command) {
       case 'identify':
         if (!sockets[command.payload.id]) {
@@ -38,7 +47,10 @@ io.on('connection', (socket) => {
           socket.emit('response', { response: 'connection', success: true });
         }, () => {
           socket.emit('response', { response: 'connection', error: true });
-        });
+        }, onMessage);
+      break;
+      case 'join':
+        ircService.join(socket.userId, command.payload);
       break;
     }
   });
