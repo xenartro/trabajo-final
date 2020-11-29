@@ -24,12 +24,8 @@ io.on('connection', (socket) => {
     console.log(`a user disconnected`);
   });
 
-  function onMessage(nick, to, message) {
-    socket.emit('message', {
-      from: nick,
-      to,
-      message
-    });
+  function respond(event, payload) {
+    socket.emit('response', { event, payload });
   }
 
   socket.on('command', (command) => {
@@ -41,13 +37,13 @@ io.on('connection', (socket) => {
           sockets[command.payload.id] = socket;
         }
 
-        socket.emit('response', { response: 'identify', sucess: true });
+        respond('identify', { success: true });
 
         ircService.connect(command.payload, () => {
-          socket.emit('response', { response: 'connection', success: true });
+          respond('connection', { success: true });
         }, () => {
-          socket.emit('response', { response: 'connection', error: true });
-        }, onMessage);
+          respond('connection', { error: true });
+        }, respond);
       break;
       case 'join':
         ircService.join(socket.userId, command.payload);

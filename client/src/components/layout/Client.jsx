@@ -1,7 +1,7 @@
 import { Accordion, Card, Container, Row, Col } from 'react-bootstrap';
 import { isConnected } from 'services/connection';
 import { Redirect } from 'react-router-dom';
-import { parseAndSend, registerMessageHandler } from 'services/commands';
+import { parseAndSend, handleResponse } from 'services/commands';
 import { useState, useEffect } from 'react';
 
 const states = {
@@ -27,11 +27,11 @@ const ClientLayout = () => {
   }
 
   useEffect(() => {
-    registerMessageHandler((from, to, message) => {
+    handleResponse('message', ({ from, to, message }) => {
       setMessages([...messages, { from, to, message }]);
     });
     return () => {
-      registerMessageHandler(null);
+      handleResponse('message', undefined);
     }
   }, []); // eslint-disable-line
 

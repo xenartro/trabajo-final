@@ -1,7 +1,6 @@
 import io from 'socket.io-client';
 
 let socket;
-let messageHandler;
 
 export function init() {
   socket = io("ws://localhost", {
@@ -10,18 +9,10 @@ export function init() {
   });
 
   socket.on('response', (data) => {
-    if (responseHandlers[data.response]) {
-      responseHandlers[data.response](data);
+    if (responseHandlers[data.event]) {
+      responseHandlers[data.event](data.payload);
     } else {
-      console.warn(`No response handler registered for ${data.response}`);
-    }
-  });
-
-  socket.on('message', (data) => {
-    console.log('message', data);
-
-    if (messageHandler) {
-      messageHandler(data.from, data.to, data.message);
+      console.warn(`No response handler registered for ${data.event}`, data.payload);
     }
   });
 }
@@ -48,8 +39,4 @@ export function parseAndSend(rawCommand) {
   }
 
   send(args[1], args[2]);
-}
-
-export function registerMessageHandler(handler) {
-  messageHandler = handler;
 }
