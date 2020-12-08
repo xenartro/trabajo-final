@@ -31,6 +31,10 @@ export function send(command, payload) {
   socket.emit('command', { command, payload });
 }
 
+export function join(channel) {
+  send('join', `#${channel}`);
+}
+
 export function parseAndSend(rawCommand) {
   const args = rawCommand.match(/\/([a-zA-Z]+) (.*)/);
 

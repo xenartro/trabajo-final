@@ -1,7 +1,7 @@
 import Channel from './Channel';
 
 class Workspace {
-  constructor({ channels = [], conversations = [] }) {
+  constructor({ channels = [], conversations = [] } = {}) {
     this.channels = channels;
     this.conversations = conversations;
   }

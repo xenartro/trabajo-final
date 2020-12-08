@@ -1,5 +1,6 @@
 import Workspace from 'models/Workspace';
 import { createContext, useContext, useState } from 'react';
+import { join } from 'services/commands';
 
 const WorkspaceContext = createContext(Workspace.getDefault());
 
@@ -8,6 +9,8 @@ const WorkspaceProvider = ({ children }) => {
 
   function join(channel) {
     workspace.join(channel);
+    
+    join(channel);
 
     setWorkspace(workspace);
   }
@@ -18,7 +21,7 @@ const WorkspaceProvider = ({ children }) => {
     setWorkspace(workspace);
   }
 
-  <WorkspaceContext.Provider value={{ workspace, join, privateMessage }}>{children}</WorkspaceContext.Provider>
+  return <WorkspaceContext.Provider value={{ workspace, join, privateMessage }}>{children}</WorkspaceContext.Provider>
 }
 
 export const useWorkspace = () => {
