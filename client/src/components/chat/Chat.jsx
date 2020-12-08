@@ -1,41 +1,31 @@
-import { useState, useEffect } from 'react';
-import { parseAndSend, handleResponse } from 'services/commands';
+import { useState, } from 'react';
+import { sendMessage } from 'services/commands';
 
 const Chat = ({ target }) => {
-  const [messages, setMessages] = useState([]);
-  const [command, setCommand] = useState('');
+  const [message, setMessage] = useState('');
 
   function handleChange(e) {
-    setCommand(e.currentTarget.value);
+    setMessage(e.currentTarget.value);
   }
 
   function submit(e) {
     e.preventDefault();
 
-    parseAndSend(command);
+    sendMessage(target.id, message);
 
-    setCommand('');
+    setMessage('');
   }
-
-  useEffect(() => {
-    handleResponse('message', ({ from, to, message }) => {
-      setMessages([...messages, { from, to, message }]);
-    });
-    return () => {
-      handleResponse('message', undefined);
-    }
-  }, []); // eslint-disable-line
 
   return (
     <div>
       <div>{target.name}</div>
 
       {target.messages.map((message, i) => (
-        <div key={i}>{message.from} -> {message.to}: {message.message}</div>
+        <div key={i}>{message.from}: {message.message}</div>
       ))}
 
       <form onSubmit={submit}>
-        <input type="text" value={command} onChange={handleChange} />
+        <input type="text" value={message} onChange={handleChange} />
 
         <button type="submit">Enviar</button>
       </form>

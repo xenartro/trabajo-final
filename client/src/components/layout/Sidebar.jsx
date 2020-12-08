@@ -4,28 +4,30 @@ import { useWorkspace } from 'components/context/Workspace';
 const Sidebar = ({ setActiveChat }) => {
   const { workspace, join } = useWorkspace();
 
+  console.log(workspace)
+
   return (
-    <Accordion>
+    <Accordion defaultActiveKey="0">
       <Card>
-        <Accordion.Toggle as={Card.Header}>
+        <Accordion.Toggle as={Card.Header} eventKey="0">
           Canales
           <button onClick={() => join('trabajofinal') }>+</button>
         </Accordion.Toggle>
-        <Accordion.Collapse>
+        <Accordion.Collapse eventKey="0">
           <Card.Body>
             <ul>
               {workspace.channels.map(channel => (
-                <li onClick={() => setActiveChat(channel)}>{channel.name}</li>
+                <li onClick={() => setActiveChat(channel)} key={channel.id}>{channel.name}</li>
               ))}
             </ul>
           </Card.Body>
         </Accordion.Collapse>
       </Card>
       <Card>
-        <Accordion.Toggle as={Card.Header}>
+        <Accordion.Toggle as={Card.Header} eventKey="1">
           Mensajes privados
         </Accordion.Toggle>
-        <Accordion.Collapse>
+        <Accordion.Collapse eventKey="1">
           <Card.Body>
             Matyax (tú)
           </Card.Body>

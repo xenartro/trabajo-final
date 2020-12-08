@@ -3,11 +3,11 @@ const irc = require('irc');
 const clients = {};
 
 module.exports.connect = function(user, onSuccess, onError, handleEvent) {
-  if (clients[user.id]) {
+  /*if (clients[user.id]) {
     onSuccess();
 
     return;
-  }
+  }*/
 
   const client = new irc.Client('irc.freenode.org', user.nickname, {
       realName: user.name,
@@ -25,6 +25,10 @@ module.exports.connect = function(user, onSuccess, onError, handleEvent) {
   client.addListener('message', (nick, to, text) =>  {
     handleEvent('message', { from: nick, to, message: text });
   })
+}
+
+module.exports.say = function (userId, to, message) {
+  clients[userId].say(to, message);
 }
 
 module.exports.join = function (userId, channel) {

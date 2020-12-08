@@ -35,6 +35,10 @@ export function join(channel) {
   send('join', `#${channel}`);
 }
 
+export function sendMessage(to, message) {
+  send('message', { to, message });
+}
+
 export function parseAndSend(rawCommand) {
   const args = rawCommand.match(/\/([a-zA-Z]+) (.*)/);
 

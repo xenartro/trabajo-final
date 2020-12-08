@@ -32,7 +32,7 @@ const ClientLayout = () => {
             <Sidebar setActiveChat={(target) => setState({...state, activeChat: target })} />
           </Col>
           <Col>
-            <Chat target={state.activeChat} />
+            {state.activeChat && <Chat target={state.activeChat} />}
           </Col>
         </Row>
       </Container>

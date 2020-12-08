@@ -48,6 +48,9 @@ io.on('connection', (socket) => {
       case 'join':
         ircService.join(socket.userId, command.payload);
       break;
+      case 'message':
+        ircService.say(socket.userId, command.payload.to, command.payload.message);
+      break;
     }
   });
 });
