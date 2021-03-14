@@ -55,12 +55,10 @@ class Workspace {
   }
 
   messageReceived(from, to, message) {
-    let target = this.findChannel(to) || this.findConversations(to);
+    let target = this.findChannel(to.replace('#', '')) || this.findConversation(to);
 
-    if (!target && to.charAt(0) === '#') {
-      target = this.join(to.replace('#', ''));
-    } else {
-      target = this.startConversation(to);
+    if (!target) {
+      target = to.charAt(0) === '#' ? this.join(to.replace('#', '')) : this.startConversation(to);
     }
 
     target.messages.push({

@@ -1,11 +1,13 @@
 import Workspace from 'models/Workspace';
 import { createContext, useContext, useState, useEffect } from 'react';
-import { handleResponse, join as joinChannel } from 'services/commands';
+import { handleResponse, join as joinChannel, sendMessage } from 'services/commands';
+import { useUserContext } from 'components/context/User';
 
 const WorkspaceContext = createContext(Workspace.getDefault());
 
 const WorkspaceProvider = ({ children }) => {
   const [workspace, setWorkspace] = useState(Workspace.getDefault());
+  const { user } = useUserContext();
 
   useEffect(() => {
     handleResponse('message', ({ from, to, message }) => {
@@ -33,7 +35,13 @@ const WorkspaceProvider = ({ children }) => {
     setWorkspace(workspace.clone());
   }
 
-  return <WorkspaceContext.Provider value={{ workspace, join, privateMessage }}>{children}</WorkspaceContext.Provider>
+  function say(target, message) {
+    workspace.messageReceived(user.nickname, target.nickname || target.name, message);
+
+    sendMessage(target, message);
+  }
+
+  return <WorkspaceContext.Provider value={{ workspace, join, privateMessage, say }}>{children}</WorkspaceContext.Provider>
 }
 
 export const useWorkspace = () => {

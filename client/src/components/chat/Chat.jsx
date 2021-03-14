@@ -1,8 +1,9 @@
 import { useState, } from 'react';
-import { sendMessage } from 'services/commands';
+import { useWorkspace } from 'components/context/Workspace';
 
 const Chat = ({ target }) => {
   const [message, setMessage] = useState('');
+  const { say } = useWorkspace();
 
   function handleChange(e) {
     setMessage(e.currentTarget.value);
@@ -11,7 +12,7 @@ const Chat = ({ target }) => {
   function submit(e) {
     e.preventDefault();
 
-    sendMessage(target.id, message);
+    say(target, message);
 
     setMessage('');
   }

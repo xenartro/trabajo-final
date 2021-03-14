@@ -27,6 +27,9 @@ const Sidebar = ({ setActiveChat }) => {
               {workspace.channels.map(channel => (
                 <li onClick={() => setActiveChat(channel)} key={channel.id}>{channel.name}</li>
               ))}
+              {workspace.conversations.map(conversation => (
+                <li onClick={() => setActiveChat(conversation)} key={conversation.id}>{conversation.nickname}</li>
+              ))}
             </ul>
           </Card.Body>
         </Accordion.Collapse>

@@ -49,8 +49,8 @@ export function join(channel) {
   send('join', `#${channel}`);
 }
 
-export function sendMessage(to, message) {
-  send('message', { to, message });
+export function sendMessage(target, message) {
+  send('message', { to: target.nickname || `#${target.name}`, message });
 }
 
 export function parseAndSend(rawCommand) {
