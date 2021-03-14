@@ -1,4 +1,5 @@
 import Channel from './Channel';
+import Conversation from './Conversation';
 
 class Workspace {
   constructor(channels = [], conversations = []) {
@@ -14,26 +15,55 @@ class Workspace {
     return new Workspace(this.channels, this.conversations);
   }
 
+  findChannel(channelName) {
+    return this.channels.find(({ name }) => name === channelName);
+  }
+
+  findConversation(username) {
+    return this.conversations.find(({ nickname }) => nickname === username);
+  }
+
+  /**
+   * @return Channel
+   */
   join(channelName) {
-    const channel = new Channel({ name: channelName });
+    let channel = this.findChannel(channelName);
+
+    if (channel) {
+      return channel;
+    }
+
+    channel = new Channel({ name: channelName });
 
     this.channels.push(channel);
 
     return channel;
   }
 
-  startConversation(username) {
-    console.error('unimplemented');
+  startConversation(nickname) {
+    let conversation = this.findConversation(nickname);
+
+    if (conversation) {
+      return conversation;
+    }
+
+    conversation = new Conversation({ user: { nickname: nickname}});
+
+    this.conversations.push(conversation);
+
+    return conversation;
   }
 
   messageReceived(from, to, message) {
-    let channel = this.channels.find(channel => channel.id === to);
+    let target = this.findChannel(to) || this.findConversations(to);
 
-    if (!channel) {
-      channel = this.join(to.replace('#', ''));
+    if (!target && to.charAt(0) === '#') {
+      target = this.join(to.replace('#', ''));
+    } else {
+      target = this.startConversation(to);
     }
 
-    channel.messages.push({
+    target.messages.push({
       from,
       message
     });

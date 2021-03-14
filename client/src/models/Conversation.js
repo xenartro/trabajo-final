@@ -1,7 +1,7 @@
 class Conversation {
   constructor({ user, messages }) {
     this.user = user;
-    this.messages = messages;
+    this.messages = messages || [];
   }
 }
 
