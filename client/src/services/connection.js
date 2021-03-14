@@ -2,25 +2,34 @@ import { init as initCommandsService, send as sendCommand, handleResponse  } fro
 
 let connected = false;
 
-export function connect(user, onSuccess, onError) {
-  initCommandsService();
+export function connect(user) {
+  if (connected) {
+    return Promise.resolve(true);
+  }
 
-  handleResponse('identify', () => {
-    console.log('User identified');
+  return new Promise((resolve, reject) => {
+    initCommandsService({
+      onDisconnect: () => {
+        console.debug('Disconnected');
+      }
+    });
+
+    handleResponse('identify', () => {
+      console.log('User identified');
+    });
+
+    handleResponse('connection', (result) => {
+      if (result.success) {
+        connected = true;
+
+        resolve(true);
+      }
+
+      reject(result);
+    })
+
+    sendCommand('identify', user);
   });
-
-  handleResponse('connection', (result) => {
-    if (result.success) {
-      connected = true;
-      onSuccess();
-
-      return;
-    }
-
-    onError();
-  })
-
-  sendCommand('identify', user);
 }
 
 export function isConnected() {

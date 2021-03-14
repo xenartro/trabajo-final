@@ -2,7 +2,13 @@ import io from 'socket.io-client';
 
 let socket;
 
-export function init() {
+export function init({ onDisconnect }) {
+  if (socket) {
+    console.debug('init(): socket already initialized');
+
+    return;
+  }
+
   socket = io("ws://localhost", {
     path: '/middleware',
     reconnectionDelayMax: 10000,
@@ -14,6 +20,14 @@ export function init() {
     } else {
       console.warn(`No response handler registered for ${data.event}`, data.payload);
     }
+  });
+
+  socket.on("connect", () => {
+    console.debug(socket.id);
+  });
+
+  socket.on("disconnect", () => {
+    onDisconnect();
   });
 }
 

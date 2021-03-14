@@ -26,7 +26,7 @@ const Start = () => {
     setUser({ ...user, [e.currentTarget.name]: e.currentTarget.value });
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
     userContext.set(user);
@@ -34,11 +34,9 @@ const Start = () => {
     setState(states.CONNECTING);
 
     try {
-      connect(user, () => {
-        setState(states.SUCCESS);
-      }, () => {
-        setState(states.ERROR);
-      });
+      await connect(user);
+
+      setState(states.SUCCESS);
     } catch (e) {
       console.error(e);
 

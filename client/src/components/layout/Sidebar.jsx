@@ -4,8 +4,6 @@ import { useWorkspace } from 'components/context/Workspace';
 const Sidebar = ({ setActiveChat }) => {
   const { workspace, join } = useWorkspace();
 
-  console.log(workspace)
-
   return (
     <Accordion defaultActiveKey="0">
       <Card>
