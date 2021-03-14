@@ -14,21 +14,23 @@ export function connect(user) {
       }
     });
 
-    handleResponse('identify', () => {
-      console.log('User identified');
-    });
-
-    handleResponse('connection', (result) => {
+    handleResponse('connected', (result) => {
       if (result.success) {
         connected = true;
 
         resolve(true);
+        return;
       }
 
       reject(result);
-    })
+    });
 
-    sendCommand('identify', user);
+    handleResponse('connect', () => {
+      // Only for debugging. The middleware identified us and requested a connection.
+      console.log('User identified');
+    });
+
+    sendCommand('connect', user);
   });
 }
 

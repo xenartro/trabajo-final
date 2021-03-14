@@ -31,18 +31,20 @@ io.on('connection', (socket) => {
   socket.on('command', (command) => {
     console.log(command);
     switch (command.command) {
-      case 'identify':
-        if (!sockets[command.payload.id]) {
-          socket.userId = command.payload.id;
-          sockets[command.payload.id] = socket;
+      case 'connect':
+        const user = command.payload;
+
+        if (!sockets[user.id]) {
+          socket.userId = user.id;
+          sockets[user.id] = socket;
         }
 
-        respond('identify', { success: true });
+        respond('connect', { success: true });
 
-        ircService.connect(command.payload, () => {
-          respond('connection', { success: true });
+        ircService.connect(user, () => {
+          respond('connected', { success: true });
         }, () => {
-          respond('connection', { error: true });
+          respond('connected', { success: false, error: 'Could not connect to IRC' });
         }, respond);
       break;
       case 'join':
