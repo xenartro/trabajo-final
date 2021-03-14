@@ -4,12 +4,22 @@ import { useWorkspace } from 'components/context/Workspace';
 const Sidebar = ({ setActiveChat }) => {
   const { workspace, join } = useWorkspace();
 
+  function askAndJoin(e) {
+    e.stopPropagation();
+
+    const channel = window.prompt('Nombre del canal');
+
+    if (channel) {
+      join(channel);
+    }
+  }
+
   return (
     <Accordion defaultActiveKey="0">
       <Card>
         <Accordion.Toggle as={Card.Header} eventKey="0">
           Canales
-          <button onClick={() => join('trabajofinal') }>+</button>
+          <button onClick={askAndJoin}>+</button>
         </Accordion.Toggle>
         <Accordion.Collapse eventKey="0">
           <Card.Body>
