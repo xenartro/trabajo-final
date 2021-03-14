@@ -25,6 +25,10 @@ module.exports.connect = function(user, onSuccess, onError, handleEvent) {
   client.addListener('message', (nick, to, text) =>  {
     handleEvent('message', { from: nick, to, message: text });
   });
+
+  client.addListener('error', function(message) {
+    console.log('error: ', message);
+});
 }
 
 module.exports.say = function (userId, to, message) {
@@ -33,6 +37,10 @@ module.exports.say = function (userId, to, message) {
 
 module.exports.join = function (userId, channel) {
   clients[userId].join(channel);
+}
+
+module.exports.part = function (userId, channel) {
+  clients[userId].part(channel);
 }
 
 module.exports.disconnect = function (userId) {
