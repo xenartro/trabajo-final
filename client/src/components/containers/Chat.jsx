@@ -1,8 +1,8 @@
-import Layout from 'components/layout/Client';
+import Client from 'components/layout/Client';
 
 const Start = () => {
   return (
-    <Layout></Layout>
+    <Client />
   )
 }
 
