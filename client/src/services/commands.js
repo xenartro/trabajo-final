@@ -46,7 +46,8 @@ export function send(command, payload) {
 }
 
 export function join(channel) {
-  send('join', `#${channel}`);
+  const channelName = channel.charAt(0) === '#' ? channel : `#${channel}`;
+  send('join', channelName);
 }
 
 export function sendMessage(target, message) {

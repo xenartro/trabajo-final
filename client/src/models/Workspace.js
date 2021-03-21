@@ -27,6 +27,7 @@ class Workspace {
    * @return Channel
    */
   join(channelName) {
+    channelName = channelName.replace(/^#/, '');
     let channel = this.findChannel(channelName);
 
     if (channel) {
