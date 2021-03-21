@@ -1,8 +1,8 @@
 import { Accordion, Card } from 'react-bootstrap';
 import { useWorkspace } from 'components/context/Workspace';
 
-const Sidebar = ({ setActiveChat }) => {
-  const { workspace, join } = useWorkspace();
+const Sidebar = () => {
+  const { workspace, join, setActiveChat } = useWorkspace();
 
   function askAndJoin(e) {
     e.stopPropagation();

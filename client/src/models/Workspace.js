@@ -2,9 +2,14 @@ import Channel from './Channel';
 import Conversation from './Conversation';
 
 class Workspace {
-  constructor(channels = [], conversations = []) {
+  channels = [];
+  conversations = [];
+  activeChat = null;
+
+  constructor(channels = [], conversations = [], activeChat = null) {
     this.channels = channels;
     this.conversations = conversations;
+    this.activeChat = activeChat;
   }
 
   static getDefault() {
@@ -12,7 +17,7 @@ class Workspace {
   }
 
   clone() {
-    return new Workspace(this.channels, this.conversations);
+    return new Workspace(this.channels, this.conversations, this.activeChat);
   }
 
   findChannel(channelName) {
@@ -38,7 +43,21 @@ class Workspace {
 
     this.channels.push(channel);
 
+    this.setActiveChat(channel);
+
     return channel;
+  }
+
+  setActiveChat(chat) {
+    this.activeChat = chat;
+  }
+
+  part(channelName) {
+    this.channels = this.channel.filter(channel => channel.name !== channelName);
+
+    if (this.activeChat?.name === channelName) {
+      this.setActiveChat(null);
+    }
   }
 
   startConversation(nickname) {

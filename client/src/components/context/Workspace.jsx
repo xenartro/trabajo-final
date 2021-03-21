@@ -41,7 +41,13 @@ const WorkspaceProvider = ({ children }) => {
     sendMessage(target, message);
   }
 
-  return <WorkspaceContext.Provider value={{ workspace, join, privateMessage, say }}>{children}</WorkspaceContext.Provider>
+  function setActiveChat(chat) {
+    workspace.setActiveChat(chat);
+
+    setWorkspace(workspace.clone());
+  }
+
+  return <WorkspaceContext.Provider value={{ workspace, join, privateMessage, say, setActiveChat }}>{children}</WorkspaceContext.Provider>
 }
 
 export const useWorkspace = () => {

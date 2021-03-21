@@ -2,9 +2,9 @@ import Message from './Message';
 import { useState, } from 'react';
 import { useWorkspace } from 'components/context/Workspace';
 
-const Chat = ({ target }) => {
+const Chat = () => {
   const [message, setMessage] = useState('');
-  const { say } = useWorkspace();
+  const { say, workspace } = useWorkspace();
 
   function handleChange(e) {
     setMessage(e.currentTarget.value);
@@ -17,6 +17,12 @@ const Chat = ({ target }) => {
 
     setMessage('');
   }
+
+  if (!workspace.activeChat) {
+    return (<NoActiveChat />)
+  }
+
+  const target = workspace.activeChat;
 
   return (
     <div>
@@ -34,5 +40,13 @@ const Chat = ({ target }) => {
     </div>
   )
 };
+
+function NoActiveChat() {
+  return (
+    <div>
+      Seleccioná una conversación del menú o unite a un canal.
+    </div>
+  )
+}
 
 export default Chat;
