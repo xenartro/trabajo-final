@@ -50,6 +50,10 @@ export function join(channel) {
   send('join', channelName);
 }
 
+export function part(channel) {
+  send('part', `#${channel}`);
+}
+
 export function sendMessage(target, message) {
   send('message', { to: target.nickname || `#${target.name}`, message });
 }

@@ -1,6 +1,7 @@
+import Channel from 'models/Channel';
 import Workspace from 'models/Workspace';
 import { createContext, useContext, useState, useEffect } from 'react';
-import { handleResponse, join as joinChannel, sendMessage } from 'services/commands';
+import { handleResponse, join as joinChannel, sendMessage, part as partChannel } from 'services/commands';
 import { useUserContext } from 'components/context/User';
 
 const WorkspaceContext = createContext(Workspace.getDefault());
@@ -47,7 +48,17 @@ const WorkspaceProvider = ({ children }) => {
     setWorkspace(workspace.clone());
   }
 
-  return <WorkspaceContext.Provider value={{ workspace, join, privateMessage, say, setActiveChat }}>{children}</WorkspaceContext.Provider>
+  function part(chat) {
+    workspace.part(chat);
+
+    if (chat instanceof Channel) {
+      partChannel(chat.id);
+    }
+
+    setWorkspace(workspace.clone());
+  }
+
+  return <WorkspaceContext.Provider value={{ workspace, join, privateMessage, say, setActiveChat, part }}>{children}</WorkspaceContext.Provider>
 }
 
 export const useWorkspace = () => {

@@ -2,7 +2,7 @@ import { Accordion, Card } from 'react-bootstrap';
 import { useWorkspace } from 'components/context/Workspace';
 
 const Sidebar = () => {
-  const { workspace, join, setActiveChat } = useWorkspace();
+  const { workspace, join, setActiveChat, part } = useWorkspace();
 
   function askAndJoin(e) {
     e.stopPropagation();
@@ -25,10 +25,16 @@ const Sidebar = () => {
           <Card.Body>
             <ul>
               {workspace.channels.map(channel => (
-                <li onClick={() => setActiveChat(channel)} key={channel.id}>{channel.name}</li>
+                <li onClick={() => setActiveChat(channel)} key={channel.id}>
+                  {channel.name}
+                  <button onClick={(e) => { e.stopPropagation(); part(channel) }}>x</button>
+                </li>
               ))}
               {workspace.conversations.map(conversation => (
-                <li onClick={() => setActiveChat(conversation)} key={conversation.id}>{conversation.nickname}</li>
+                <li onClick={() => setActiveChat(conversation)} key={conversation.id}>
+                  {conversation.nickname}
+                  <button onClick={(e) => { e.stopPropagation(); part(conversation) }}>x</button>
+                </li>
               ))}
             </ul>
           </Card.Body>

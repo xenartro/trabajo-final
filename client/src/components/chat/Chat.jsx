@@ -22,6 +22,8 @@ const Chat = () => {
     return (<NoActiveChat />)
   }
 
+  console.log(workspace);
+
   const target = workspace.activeChat;
 
   return (

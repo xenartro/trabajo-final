@@ -25,7 +25,7 @@ class Workspace {
   }
 
   findConversation(username) {
-    return this.conversations.find(({ nickname }) => nickname === username);
+    return this.conversations.find(({ user }) => user.nickname === username);
   }
 
   /**
@@ -52,10 +52,15 @@ class Workspace {
     this.activeChat = chat;
   }
 
-  part(channelName) {
-    this.channels = this.channel.filter(channel => channel.name !== channelName);
+  part(chat) {
+    if (chat instanceof Conversation) {
+      this.conversations = this.conversations.filter(conversation => conversation.user.nickname !== chat.user.nickname);
+      return;
+    }
 
-    if (this.activeChat?.name === channelName) {
+    this.channels = this.channels.filter(channel => channel.name !== chat.name);
+
+    if (this.activeChat?.id === chat.id) {
       this.setActiveChat(null);
     }
   }
