@@ -1,3 +1,4 @@
+import Message from './Message';
 import { useState, } from 'react';
 import { useWorkspace } from 'components/context/Workspace';
 
@@ -22,7 +23,7 @@ const Chat = ({ target }) => {
       <div>{target.name}</div>
 
       {target.messages.map((message, i) => (
-        <div key={i}>{message.from}: {message.message}</div>
+        <Message key={i} message={message} />
       ))}
 
       <form onSubmit={submit}>
