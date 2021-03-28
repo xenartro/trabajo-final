@@ -76,7 +76,7 @@ module.exports.connect = function(user, onSuccess, onError, handleEvent) {
   });
 }
 
-module.exports.say = function (userId, to, message) {
+module.exports.say = function (userId, to, message, handleEvent) {
   if (!clients[userId]) {
     return handleEvent('disconnected', {});;
   }
@@ -84,7 +84,7 @@ module.exports.say = function (userId, to, message) {
   clients[userId].say(to, message);
 }
 
-module.exports.join = function (userId, channel) {
+module.exports.join = function (userId, channe, handleEventl) {
   if (!clients[userId]) {
     return handleEvent('disconnected', {});;
   }
@@ -92,7 +92,7 @@ module.exports.join = function (userId, channel) {
   clients[userId].join(channel);
 }
 
-module.exports.part = function (userId, channel) {
+module.exports.part = function (userId, channel, handleEvent) {
   if (!clients[userId]) {
     return handleEvent('disconnected', {});;
   }
@@ -100,7 +100,7 @@ module.exports.part = function (userId, channel) {
   clients[userId].part(channel);
 }
 
-module.exports.disconnect = function (userId) {
+module.exports.disconnect = function (userId, handleEvent) {
   if (clients[userId]) {
     clients[userId].disconnect();
 

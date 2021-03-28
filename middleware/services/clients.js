@@ -48,13 +48,13 @@ io.on('connection', (socket) => {
         }, respond);
       break;
       case 'join':
-        ircService.join(socket.userId, command.payload);
+        ircService.join(socket.userId, command.payload, respond);
       break;
       case 'part':
-        ircService.part(socket.userId, command.payload);
+        ircService.part(socket.userId, command.payload, respond);
       break;
       case 'message':
-        ircService.say(socket.userId, command.payload.to, command.payload.message);
+        ircService.say(socket.userId, command.payload.to, command.payload.message, respond);
       break;
     }
   });
