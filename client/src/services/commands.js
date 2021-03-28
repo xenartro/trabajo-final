@@ -16,7 +16,7 @@ export function init({ onDisconnect }) {
 
   socket.on('response', (data) => {
     if (responseHandlers[data.event]) {
-      responseHandlers[data.event](data.payload);
+      responseHandlers[data.event].forEach(callback => callback(data.payload));
     } else {
       console.warn(`No response handler registered for ${data.event}`, data.payload);
     }
@@ -38,7 +38,24 @@ export function handleResponse(response, callback) {
     throw new Error('No active socket');
   }
 
-  responseHandlers[response] = callback;
+  if (!responseHandlers[response]) {
+    responseHandlers[response] = [];
+  }
+
+  responseHandlers[response].push(callback);
+}
+
+export function unHandleResponse(response, callback) {
+  if (!socket) {
+    throw new Error('No active socket');
+  }
+
+  if (!responseHandlers[response]) {
+    console.error(`No listeners registered for ${response}`);
+    return;
+  }
+
+  responseHandlers[response] = responseHandlers[response].filter(fn => fn !== callback);
 }
 
 export function send(command, payload) {
