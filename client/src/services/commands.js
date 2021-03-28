@@ -35,7 +35,7 @@ let responseHandlers = {};
 
 export function handleResponse(response, callback) {
   if (!socket) {
-    throw new Error('No active socket');
+    return;
   }
 
   if (!responseHandlers[response]) {
@@ -46,10 +46,6 @@ export function handleResponse(response, callback) {
 }
 
 export function unHandleResponse(response, callback) {
-  if (!socket) {
-    throw new Error('No active socket');
-  }
-
   if (!responseHandlers[response]) {
     console.error(`No listeners registered for ${response}`);
     return;

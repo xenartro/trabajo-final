@@ -2,6 +2,7 @@ import User from 'models/User';
 
 class Channel {
   users = [];
+  isChannel = true;
 
   constructor({ name, topic }) {
     this.name = name;

@@ -1,4 +1,6 @@
 import Message from './Message';
+import UserList from './UserList';
+import { Col, Row } from 'react-bootstrap';
 import { useState, } from 'react';
 import { useWorkspace } from 'components/context/Workspace';
 
@@ -25,19 +27,26 @@ const Chat = () => {
   const target = workspace.activeChat;
 
   return (
-    <div>
-      <div>{target.name}</div>
+    <Row>
+      <Col md={target.isChannel ? 10 : 12}>
+        <h2>{target.name}</h2>
 
-      {target.messages.map((message, i) => (
-        <Message key={i} message={message} />
-      ))}
+        {target.messages.map((message, i) => (
+          <Message key={i} message={message} />
+        ))}
 
-      <form onSubmit={submit}>
-        <input type="text" value={message} onChange={handleChange} />
+        <form onSubmit={submit}>
+          <input type="text" value={message} onChange={handleChange} />
 
-        <button type="submit">Enviar</button>
-      </form>
-    </div>
+          <button type="submit">Enviar</button>
+        </form>
+      </Col>
+      {target.isChannel && (
+        <Col md={2}>
+          <UserList channel={target} />
+        </Col>
+      )}
+    </Row>
   )
 };
 

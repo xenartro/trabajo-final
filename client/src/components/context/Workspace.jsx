@@ -68,7 +68,7 @@ const WorkspaceProvider = ({ children }) => {
     workspace.part(chat);
 
     if (chat instanceof Channel) {
-      partChannel(chat.id);
+      partChannel(chat.name);
     }
 
     setWorkspace(workspace.clone());
