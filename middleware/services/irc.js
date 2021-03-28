@@ -84,9 +84,9 @@ module.exports.say = function (userId, to, message, handleEvent) {
   clients[userId].say(to, message);
 }
 
-module.exports.join = function (userId, channe, handleEventl) {
+module.exports.join = function (userId, channel, handleEvent) {
   if (!clients[userId]) {
-    return handleEvent('disconnected', {});;
+    return handleEvent('disconnected', {});
   }
 
   clients[userId].join(channel);

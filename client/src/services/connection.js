@@ -30,6 +30,10 @@ export function connect(user) {
       console.log('User identified');
     });
 
+    handleResponse('disconnected', () => {
+      connected = false;
+    });
+
     sendCommand('connect', user);
   });
 }

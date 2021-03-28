@@ -1,12 +1,14 @@
 import Chat from 'components/chat/Chat';
 import Sidebar from './Sidebar';
+import useConnectionStatus from 'hooks/useConnectionStatus';
 import WorkspaceContext from 'components/context/Workspace';
 import { Container, Row, Col } from 'react-bootstrap';
-import { isConnected } from 'services/connection';
 import { Redirect } from 'react-router-dom';
 
 const ClientLayout = () => {
-  if (!isConnected()) {
+  const connected = useConnectionStatus();
+
+  if (!connected) {
     return <Redirect to="/" />;
   }
 
