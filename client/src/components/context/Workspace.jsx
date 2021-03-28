@@ -1,7 +1,7 @@
 import Channel from 'models/Channel';
 import Workspace from 'models/Workspace';
 import { createContext, useContext, useState, useEffect } from 'react';
-import { handleResponse, join as joinChannel, sendMessage, part as partChannel } from 'services/commands';
+import { handleResponse, join as joinChannel, sendMessage, part as partChannel, unHandleResponse } from 'services/commands';
 import { useUserContext } from 'components/context/User';
 
 const WorkspaceContext = createContext(Workspace.getDefault());
@@ -11,14 +11,30 @@ const WorkspaceProvider = ({ children }) => {
   const { user } = useUserContext();
 
   useEffect(() => {
-    handleResponse('message', ({ from, to, message }) => {
-      console.log(from, to, message);
+    function messageHandler({ from, to, message }) {
       workspace.messageReceived(from, to, message);
 
       setWorkspace(workspace.clone());
-    });
+    }
+
+    handleResponse('message', messageHandler);
+
     return () => {
-      handleResponse('message', undefined);
+      unHandleResponse('message', messageHandler);
+    }
+  }, []); // eslint-disable-line
+
+  useEffect(() => {
+    function userListHandler({ channel, nicknames }) {
+      workspace.receivedUserList(channel, nicknames);
+
+      setWorkspace(workspace.clone());
+    }
+
+    handleResponse('user_list', userListHandler);
+
+    return () => {
+      unHandleResponse('user_list', userListHandler);
     }
   }, []); // eslint-disable-line
 

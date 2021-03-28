@@ -1,6 +1,8 @@
+import User from 'models/User';
+
 class Conversation {
-  constructor({ user, messages }) {
-    this.user = user;
+  constructor({ nickname, messages = [] }) {
+    this.user = User.find(nickname);
     this.messages = messages || [];
   }
 }

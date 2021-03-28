@@ -14,19 +14,19 @@ const io = require('socket.io')(server, {
 io.on('connection', (socket) => {
   console.log('a user connected');
 
+  function respond(event, payload) {
+    socket.emit('response', { event, payload });
+  }
+
   socket.on('disconnect', () => {
     if (sockets[socket.userId]) {
-      ircService.disconnect(socket.userId);
+      ircService.disconnect(socket.userId, respond);
 
       sockets[socket.userId] = undefined;
     }
 
     console.log(`a user disconnected`);
   });
-
-  function respond(event, payload) {
-    socket.emit('response', { event, payload });
-  }
 
   socket.on('command', (command) => {
     console.log(command);

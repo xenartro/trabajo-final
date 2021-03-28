@@ -21,6 +21,8 @@ class Workspace {
   }
 
   findChannel(channelName) {
+    channelName = channelName.replace(/^#/, '');
+
     return this.channels.find(({ name }) => name === channelName);
   }
 
@@ -72,7 +74,7 @@ class Workspace {
       return conversation;
     }
 
-    conversation = new Conversation({ user: { nickname: nickname}});
+    conversation = new Conversation({ nickname });
 
     this.conversations.push(conversation);
 
@@ -80,7 +82,7 @@ class Workspace {
   }
 
   messageReceived(from, to, message) {
-    let target = this.findChannel(to.replace('#', '')) || this.findConversation(to);
+    let target = this.findChannel(to) || this.findConversation(to);
 
     if (!target) {
       target = to.charAt(0) === '#' ? this.join(to.replace('#', '')) : this.startConversation(to);
@@ -91,6 +93,18 @@ class Workspace {
       message
     });
   }
+
+  receivedUserList(channelName, nicknames) {
+    const channel = this.findChannel(channelName);
+
+    if (!channel) {
+      console.error(`Received user list from not found channel ${channelName}`);
+      return;
+    }
+
+    channel.receivedUserList(nicknames);
+  }
+
 }
 
 export default Workspace;
