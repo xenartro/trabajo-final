@@ -53,7 +53,7 @@ const WorkspaceProvider = ({ children }) => {
   }
 
   function say(target, message) {
-    workspace.messageReceived(user.nickname, target.nickname || target.name, message);
+    workspace.messageSent(user.nickname, target, message);
 
     sendMessage(target, message);
   }

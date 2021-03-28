@@ -68,7 +68,9 @@ export function part(channel) {
 }
 
 export function sendMessage(target, message) {
-  send('message', { to: target.nickname || `#${target.name}`, message });
+  const to = target.isChannel ? target.id : target.user.nickname;
+
+  send('message', { to, message });
 }
 
 export function parseAndSend(rawCommand) {

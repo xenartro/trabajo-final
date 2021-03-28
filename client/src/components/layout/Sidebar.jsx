@@ -25,14 +25,14 @@ const Sidebar = () => {
           <Card.Body>
             <ul>
               {workspace.channels.map(channel => (
-                <li onClick={() => setActiveChat(channel)} key={channel.id}>
+                <li className={workspace.activeChat === channel ? 'font-weight-bold' : ''} onClick={() => setActiveChat(channel)} key={channel.id}>
                   {channel.name}
                   <button onClick={(e) => { e.stopPropagation(); part(channel) }}>x</button>
                 </li>
               ))}
-              {workspace.conversations.map(conversation => (
-                <li onClick={() => setActiveChat(conversation)} key={conversation.id}>
-                  {conversation.nickname}
+              {workspace.conversations.map((conversation, i) => (
+                <li className={workspace.activeChat === conversation ? 'font-weight-bold' : ''} onClick={() => setActiveChat(conversation)} key={i}>
+                  {conversation.user.nickname}
                   <button onClick={(e) => { e.stopPropagation(); part(conversation) }}>x</button>
                 </li>
               ))}
