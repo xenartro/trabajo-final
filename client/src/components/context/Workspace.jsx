@@ -38,6 +38,20 @@ const WorkspaceProvider = ({ children }) => {
     }
   }, []); // eslint-disable-line
 
+  useEffect(() => {
+    function topicHandler({ channel, topic, nickname }) {
+      workspace.receivedTopic(channel, topic, nickname);
+
+      setWorkspace(workspace.clone());
+    }
+
+    handleResponse('topic', topicHandler);
+
+    return () => {
+      unHandleResponse('topic', topicHandler);
+    }
+  }, []); // eslint-disable-line
+
   function join(channel) {
     workspace.join(channel);
 

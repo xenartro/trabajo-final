@@ -105,13 +105,18 @@ class Workspace {
     const channel = this.findChannel(channelName);
 
     if (!channel) {
-      console.error(`Received user list from not found channel ${channelName}`);
+      console.error(`Received user list from channel not found ${channelName}`);
       return;
     }
 
     channel.receivedUserList(nicknames);
   }
 
+  receivedTopic(channelName, topic) {
+    const channel = this.findChannel(channelName);
+
+    channel.topic = topic;
+  }
 }
 
 export default Workspace;

@@ -30,6 +30,7 @@ const Chat = () => {
     <Row>
       <Col md={target.isChannel ? 10 : 12}>
         <h2>{target.name}</h2>
+        {target.topic && <h4>{target.topic}</h4>}
 
         {target.messages.map((message, i) => (
           <Message key={i} message={message} />
