@@ -5,6 +5,8 @@ const users = [];
 
 export default class User {
   online = true;
+  username = '?';
+  host = '?';
 
   constructor({ id, name = '', email = '', nickname }) {
     this.id = id || uniqid();
@@ -23,5 +25,16 @@ export default class User {
     }
 
     return user;
+  }
+
+  get displayName() {
+    return this.name || this.nickname;
+  }
+
+  setUserInfo(nickname, name, username, host) {
+    this.nickname = nickname;
+    this.name = name;
+    this.username = username;
+    this.host = host;
   }
 }

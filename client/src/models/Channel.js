@@ -11,6 +11,10 @@ class Channel {
     this.messages = [];
   }
 
+  get displayName() {
+    return this.name;
+  }
+
   /**
    * Format: { nick: status, nick2: status }
    */

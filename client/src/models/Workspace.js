@@ -140,6 +140,11 @@ class Workspace {
     const user = User.find(oldNick);
     user.nickname = newNick;
   }
+
+  receivedUserInfo(nickname, name, username, host) {
+    const user = User.find(nickname);
+    user.setUserInfo(nickname, name, username, host);
+  }
 }
 
 export default Workspace;

@@ -66,8 +66,8 @@ module.exports.connect = function(user, onSuccess, onError, handleEvent) {
     handleEvent('-mode', { channel, by, mode, argument });
   });
 
-  client.addListener('whois', ({ nick, user, realname, }) =>  {
-    handleEvent('whois', { nickname: nick, user, name: realname });
+  client.addListener('whois', ({ nick, user, realname, host }) =>  {
+    handleEvent('whois', { nickname: nick, user, name: realname, host });
   });
 
   client.addListener('error', function(message) {

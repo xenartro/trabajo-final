@@ -110,6 +110,20 @@ const WorkspaceProvider = ({ children }) => {
     }
   }, []); // eslint-disable-line
 
+  useEffect(() => {
+    function userInfoHandler({ nickname, name, user, host }) {
+      workspace.receivedUserInfo(nickname, name, user, host);
+
+      setWorkspace(workspace.clone());
+    }
+
+    handleResponse('whois', userInfoHandler);
+
+    return () => {
+      unHandleResponse('whois', userInfoHandler);
+    }
+  }, []); // eslint-disable-line
+
   function join(channel) {
     workspace.join(channel);
 
