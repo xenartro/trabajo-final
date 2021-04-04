@@ -16,8 +16,22 @@ class Channel {
    */
   receivedUserList(nicknames) {
     for (const nickname in nicknames) {
-      this.users.push(User.find(nickname));
+      this.addUser(nickname);
     }
+  }
+
+  addUser(nickname) {
+    const user = User.find(nickname);
+
+    if (!this.users.includes(user)) {
+      this.users.push(user);
+    }
+  }
+
+  removeUser(nickname) {
+    const user = User.find(nickname);
+
+    this.users = this.users.filter(channelUser => channelUser !== user);
   }
 }
 

@@ -52,6 +52,64 @@ const WorkspaceProvider = ({ children }) => {
     }
   }, []); // eslint-disable-line
 
+  useEffect(() => {
+    function joinHandler({ channel, nickname }) {
+      workspace.userJoined(channel, nickname);
+
+      setWorkspace(workspace.clone());
+    }
+
+    handleResponse('join', joinHandler);
+
+    return () => {
+      unHandleResponse('join', joinHandler);
+    }
+  }, []); // eslint-disable-line
+
+  useEffect(() => {
+    function partHandler({ channel, nickname }) {
+      workspace.userLeft(channel, nickname);
+
+      setWorkspace(workspace.clone());
+    }
+
+    handleResponse('part', partHandler);
+    handleResponse('kick', partHandler);
+
+    return () => {
+      unHandleResponse('part', partHandler);
+      unHandleResponse('kick', partHandler);
+    }
+  }, []); // eslint-disable-line
+
+  useEffect(() => {
+    function userDisconnectedHandler({ nickname }) {
+      workspace.userDisconnected(nickname);
+
+      setWorkspace(workspace.clone());
+    }
+
+    handleResponse('quit', userDisconnectedHandler);
+
+    return () => {
+      unHandleResponse('quit', userDisconnectedHandler);
+    }
+  }, []); // eslint-disable-line
+
+  useEffect(() => {
+    function nicknameChangeHandler({ oldnick, newnick }) {
+      workspace.userNicknameChanged(oldnick, newnick);
+
+      setWorkspace(workspace.clone());
+    }
+
+    handleResponse('nick', nicknameChangeHandler);
+
+    return () => {
+      unHandleResponse('nick', nicknameChangeHandler);
+    }
+  }, []); // eslint-disable-line
+
   function join(channel) {
     workspace.join(channel);
 

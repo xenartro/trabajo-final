@@ -4,6 +4,8 @@ import uniqid from 'uniqid';
 const users = [];
 
 export default class User {
+  online = true;
+
   constructor({ id, name = '', email = '', nickname }) {
     this.id = id || uniqid();
     this.name = name;

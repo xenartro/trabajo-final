@@ -1,5 +1,6 @@
 import Channel from './Channel';
 import Conversation from './Conversation';
+import User from './User';
 
 class Workspace {
   channels = [];
@@ -114,8 +115,30 @@ class Workspace {
 
   receivedTopic(channelName, topic) {
     const channel = this.findChannel(channelName);
-
     channel.topic = topic;
+  }
+
+  userJoined(channelName, nickname) {
+    const channel = this.findChannel(channelName);
+    channel.addUser(nickname);
+
+    const user = User.find(nickname);
+    user.online = true;
+  }
+
+  userLeft(channelName, nickname) {
+    const channel = this.findChannel(channelName);
+    channel.removeUser(nickname);
+  }
+
+  userDisconnected(nickname) {
+    const user = User.find(nickname);
+    user.online = false;
+  }
+
+  userNicknameChanged(oldNick, newNick) {
+    const user = User.find(oldNick);
+    user.nickname = newNick;
   }
 }
 
