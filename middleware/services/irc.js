@@ -127,7 +127,7 @@ module.exports.send = function (userId, command, args, handleEvent) {
 
   let argList = args.split(' ');
 
-  if (argList.length > 1 && argList[0].startsWith('#')) {
+  if (argList.length >= 1 && argList[0].startsWith('#')) {
     argList = [...argList.splice(0, 1), argList.join(' ')];
   }
 

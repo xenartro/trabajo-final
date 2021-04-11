@@ -78,14 +78,14 @@ export function sendMessage(target, message) {
 }
 
 export function parseAndSend(rawCommand, target = null) {
-  const parts = rawCommand.match(/\/([a-zA-Z]+) (.*)/);
+  const parts = rawCommand.match(/\/([a-zA-Z]+)(?: )?(.*)/);
 
   if (!parts) {
     return false;
   }
 
   const command = parts[1];
-  const args = target && target.isChannel ? `${target.id} ${parts[2]}` : parts[2];
+  const args = target && target.isChannel && !parts[2].startsWith('#') ? `${target.id} ${parts[2]}` : parts[2];
 
-  send(command, args);
+  send(command, args.trim());
 }

@@ -27,6 +27,20 @@ class Workspace {
     return this.channels.find(({ name }) => name === channelName);
   }
 
+  findOrCreateChannel(channelName) {
+    channelName = channelName.replace(/^#/, '');
+
+    let channel = this.findChannel(channelName);
+
+    if (!channel) {
+      channel = new Channel({ name: channelName });
+
+      this.channels.push(channel);
+    }
+
+    return channel;
+  }
+
   findConversation(username) {
     return this.conversations.find(({ user }) => user.nickname === username);
   }
@@ -36,15 +50,7 @@ class Workspace {
    */
   join(channelName) {
     channelName = channelName.replace(/^#/, '');
-    let channel = this.findChannel(channelName);
-
-    if (channel) {
-      return channel;
-    }
-
-    channel = new Channel({ name: channelName });
-
-    this.channels.push(channel);
+    const channel = this.findOrCreateChannel(channelName);
 
     this.setActiveChat(channel);
 
@@ -103,7 +109,7 @@ class Workspace {
   }
 
   receivedUserList(channelName, nicknames) {
-    const channel = this.findChannel(channelName);
+    const channel = this.findOrCreateChannel(channelName);
 
     if (!channel) {
       console.error(`Received user list from channel not found ${channelName}`);
@@ -114,12 +120,12 @@ class Workspace {
   }
 
   receivedTopic(channelName, topic) {
-    const channel = this.findChannel(channelName);
+    const channel = this.findOrCreateChannel(channelName);
     channel.topic = topic;
   }
 
   userJoined(channelName, nickname) {
-    const channel = this.findChannel(channelName);
+    const channel = this.findOrCreateChannel(channelName);
     channel.addUser(nickname);
 
     const user = User.find(nickname);
@@ -127,7 +133,7 @@ class Workspace {
   }
 
   userLeft(channelName, nickname) {
-    const channel = this.findChannel(channelName);
+    const channel = this.findOrCreateChannel(channelName);
     channel.removeUser(nickname);
   }
 
