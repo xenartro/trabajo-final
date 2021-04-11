@@ -113,14 +113,14 @@ class Workspace {
       target = to.charAt(0) === '#' ? this.join(to.replace('#', '')) : this.startConversation(from);
     }
 
-    target.messages.push({
+    target.addMessage({
       from,
       message
     });
   }
 
   messageSent(from, target, message) {
-    target.messages.push({
+    target.addMessage({
       from,
       message
     });

@@ -26,3 +26,25 @@ function urlMarkdownTransformation(url) {
 
   return `[${preview}](${url})`;
 }
+
+export function getMessageHistory(key) {
+  const history = localStorage.getItem(`history_${key}`);
+
+  if (!history) {
+    console.log(`Message history not found for key ${key}`);
+
+    return [];
+  }
+
+  try {
+    return JSON.parse(history);
+  } catch(e) {
+    console.error(e);
+  }
+
+  return [];
+}
+
+export function setMessageHistory(key, messages) {
+  localStorage.setItem(`history_${key}`, JSON.stringify(messages));
+}
