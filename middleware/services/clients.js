@@ -56,6 +56,8 @@ io.on('connection', (socket) => {
       case 'message':
         ircService.say(socket.userId, command.payload.to, command.payload.message, respond);
       break;
+      default:
+        ircService.send(socket.userId, command.command, command.payload, respond);
     }
   });
 });

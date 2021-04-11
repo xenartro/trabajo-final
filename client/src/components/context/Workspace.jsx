@@ -1,7 +1,7 @@
 import Channel from 'models/Channel';
 import Workspace from 'models/Workspace';
 import { createContext, useContext, useState, useEffect } from 'react';
-import { handleResponse, join as joinChannel, sendMessage, part as partChannel, unHandleResponse } from 'services/commands';
+import { handleResponse, join as joinChannel, sendMessage, part as partChannel, unHandleResponse, isCommand, parseAndSend } from 'services/commands';
 import { useUserContext } from 'components/context/User';
 
 const WorkspaceContext = createContext(Workspace.getDefault());
@@ -139,6 +139,10 @@ const WorkspaceProvider = ({ children }) => {
   }
 
   function say(target, message) {
+    if (target.isChannel && isCommand(message)) {
+      parseAndSend(message, target);
+      return;
+    }
     workspace.messageSent(user.nickname, target, message);
 
     sendMessage(target, message);

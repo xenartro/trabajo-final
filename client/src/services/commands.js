@@ -54,12 +54,16 @@ export function unHandleResponse(response, callback) {
   responseHandlers[response] = responseHandlers[response].filter(fn => fn !== callback);
 }
 
+export function isCommand(message) {
+  return message.startsWith('/');
+}
+
 export function send(command, payload) {
   socket.emit('command', { command, payload });
 }
 
 export function join(channel) {
-  const channelName = channel.charAt(0) === '#' ? channel : `#${channel}`;
+  const channelName = channel.startsWith('#') ? channel : `#${channel}`;
   send('join', channelName);
 }
 
@@ -73,12 +77,15 @@ export function sendMessage(target, message) {
   send('message', { to, message });
 }
 
-export function parseAndSend(rawCommand) {
-  const args = rawCommand.match(/\/([a-zA-Z]+) (.*)/);
+export function parseAndSend(rawCommand, target = null) {
+  const parts = rawCommand.match(/\/([a-zA-Z]+) (.*)/);
 
-  if (!args) {
+  if (!parts) {
     return false;
   }
 
-  send(args[1], args[2]);
+  const command = parts[1];
+  const args = target && target.isChannel ? `${target.id} ${parts[2]}` : parts[2];
+
+  send(command, args);
 }

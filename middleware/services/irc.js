@@ -76,25 +76,35 @@ module.exports.connect = function(user, onSuccess, onError, handleEvent) {
   });
 }
 
-module.exports.say = function (userId, to, message, handleEvent) {
+function isUserConnectionActive(userId, handleEvent) {
   if (!clients[userId]) {
-    return handleEvent('disconnected', {});;
+    handleEvent('disconnected', {});
+
+    return false;
+  }
+
+  return true;
+}
+
+module.exports.say = function (userId, to, message, handleEvent) {
+  if (!isUserConnectionActive(userId, handleEvent)) {
+    return;
   }
 
   clients[userId].say(to, message);
 }
 
 module.exports.join = function (userId, channel, handleEvent) {
-  if (!clients[userId]) {
-    return handleEvent('disconnected', {});
+  if (!isUserConnectionActive(userId, handleEvent)) {
+    return;
   }
 
   clients[userId].join(channel);
 }
 
 module.exports.part = function (userId, channel, handleEvent) {
-  if (!clients[userId]) {
-    return handleEvent('disconnected', {});;
+  if (!isUserConnectionActive(userId, handleEvent)) {
+    return;
   }
 
   clients[userId].part(channel);
@@ -108,4 +118,18 @@ module.exports.disconnect = function (userId, handleEvent) {
 
     handleEvent('disconnected', {});
   }
+}
+
+module.exports.send = function (userId, command, args, handleEvent) {
+  if (!isUserConnectionActive(userId, handleEvent)) {
+    return;
+  }
+
+  let argList = args.split(' ');
+
+  if (argList.length > 1 && argList[0].startsWith('#')) {
+    argList = [...argList.splice(0, 1), argList.join(' ')];
+  }
+
+  clients[userId].send(command, ...argList);
 }
