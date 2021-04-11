@@ -15,6 +15,8 @@ export function init({ onDisconnect }) {
   });
 
   socket.on('response', (data) => {
+    console.log(data);
+
     if (responseHandlers[data.event]) {
       responseHandlers[data.event].forEach(callback => callback(data.payload));
     } else {

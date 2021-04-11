@@ -3,22 +3,40 @@ import Conversation from './Conversation';
 import User from './User';
 
 class Workspace {
-  channels = [];
-  conversations = [];
-  activeChat = null;
-
-  constructor(channels = [], conversations = [], activeChat = null) {
-    this.channels = channels;
-    this.conversations = conversations;
-    this.activeChat = activeChat;
-  }
+  static channels = [];
+  static conversations = [];
+  static activeChat = null;
 
   static getDefault() {
     return new Workspace();
   }
 
+  get channels() {
+    return Workspace.channels;
+  }
+
+  get conversations() {
+    return Workspace.conversations;
+  }
+
+  get activeChat() {
+    return Workspace.activeChat;
+  }
+
+  set channels(channels) {
+    Workspace.channels = channels;
+  }
+
+  set conversations(conversations) {
+    Workspace.conversations = conversations;
+  }
+
+  set activeChat(activeChat) {
+    Workspace.activeChat = activeChat;
+  }
+
   clone() {
-    return new Workspace(this.channels, this.conversations, this.activeChat);
+    return new Workspace();
   }
 
   findChannel(channelName) {
@@ -133,8 +151,11 @@ class Workspace {
   }
 
   userLeft(channelName, nickname) {
-    const channel = this.findOrCreateChannel(channelName);
-    channel.removeUser(nickname);
+    const channel = this.findChannel(channelName);
+
+    if (channel) {
+      channel.removeUser(nickname);
+    }
   }
 
   userDisconnected(nickname) {
