@@ -33,6 +33,9 @@ function urlMarkdownTransformation(url) {
   return `${prefix}[${preview}](${url})`;
 }
 
+/**
+ * Get the message history for a given key.
+ */
 export function getMessageHistory(key) {
   const history = localStorage.getItem(`history_${key}`);
 
@@ -51,6 +54,23 @@ export function getMessageHistory(key) {
   return [];
 }
 
+/**
+ * Set the message history for a given key.
+ */
 export function setMessageHistory(key, messages) {
   localStorage.setItem(`history_${key}`, JSON.stringify(messages));
+}
+
+/**
+ * Return a user-friendly string describing an event.
+ */
+export function eventToString(event) {
+  switch (event) {
+    case 'join':
+      return 'Entró al canal';
+    case 'part':
+      return 'Salió del canal';
+    default:
+      return 'Evento no implementado';
+  }
 }

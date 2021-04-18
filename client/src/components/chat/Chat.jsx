@@ -1,3 +1,4 @@
+import Event from './Event';
 import Message from './Message';
 import UserList from './UserList';
 import { Col, Row } from 'react-bootstrap';
@@ -33,7 +34,7 @@ const Chat = () => {
         {target.topic && <h4>{target.topic}</h4>}
 
         {target.messages.map((message, i) => (
-          <Message key={i} message={message} />
+          message.type === 'message' ? <Message key={i} message={message} /> : <Event key={i} event={message} />
         ))}
 
         <form onSubmit={submit}>

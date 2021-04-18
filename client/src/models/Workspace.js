@@ -115,6 +115,7 @@ class Workspace {
     }
 
     target.addMessage({
+      type: 'message',
       from,
       message,
       ts: dayjs().unix(),
@@ -123,6 +124,7 @@ class Workspace {
 
   messageSent(from, target, message) {
     target.addMessage({
+      type: 'message',
       from,
       message,
       ts: dayjs().unix(),
@@ -149,6 +151,13 @@ class Workspace {
     const channel = this.findOrCreateChannel(channelName);
     channel.addUser(nickname);
 
+    channel.addMessage({
+      type: 'event',
+      nickname,
+      event: 'join',
+      ts: dayjs().unix(),
+    });
+
     const user = User.find(nickname);
     user.online = true;
   }
@@ -158,6 +167,13 @@ class Workspace {
 
     if (channel) {
       channel.removeUser(nickname);
+
+      channel.addMessage({
+        type: 'event',
+        nickname,
+        event: 'part',
+        ts: dayjs().unix(),
+      });
     }
   }
 
