@@ -1,5 +1,6 @@
 import Channel from './Channel';
 import Conversation from './Conversation';
+import dayjs from 'dayjs';
 import User from './User';
 
 class Workspace {
@@ -115,14 +116,16 @@ class Workspace {
 
     target.addMessage({
       from,
-      message
+      message,
+      ts: dayjs().unix(),
     });
   }
 
   messageSent(from, target, message) {
     target.addMessage({
       from,
-      message
+      message,
+      ts: dayjs().unix(),
     });
   }
 
