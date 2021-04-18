@@ -1,3 +1,4 @@
+import Event from './Event';
 import Message from './Message';
 import UserList from './UserList';
 import User from './User';
@@ -56,7 +57,7 @@ const Chat = () => {
               )}
 
               {target.messages.map((message, i) => (
-                <Message key={i} message={message} />
+                message.type === 'message' ? <Message key={i} message={message} /> : <Event key={i} event={message} />
               ))}
             </div>
           </div>
