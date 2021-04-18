@@ -24,7 +24,13 @@ function urlMarkdownTransformation(url) {
   const preview = url;
   url = !url.startsWith('http') ? `http://${url}` : url;
 
-  return `[${preview}](${url})`;
+  let prefix = '';
+
+  if (url.endsWith('.jpg') || url.endsWith('.png') || url.endsWith('.gif')) {
+    prefix = '!';
+  }
+
+  return `${prefix}[${preview}](${url})`;
 }
 
 export function getMessageHistory(key) {
