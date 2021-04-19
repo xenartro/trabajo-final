@@ -1,0 +1,26 @@
+.irc-user-list {
+  position: absolute;
+  top: 36px;
+  right: 36px;
+  max-height: calc(100vh - 64px - 64px);
+  background-color: var(--background-medium-color);
+  padding: 16px 28px;
+  width: 18%;
+  max-width: 240px;
+  min-width: 200px;
+
+  box-shadow: 0 12px 24px -6px #FFFFFF;
+  border-radius: 20px;
+  overflow-y: scroll;
+}
+
+.irc-user-list .irc-user-list__title {
+  height: 32px;
+  font-size: var(--xs-font-size);
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 4px 0 ;
+  color: var(--text-medium-color);
+  width: 100%;
+  position: relative;
+}

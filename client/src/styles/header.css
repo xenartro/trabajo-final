@@ -1,0 +1,14 @@
+.irc-header {
+  background-color: var(--white-color);
+  border-bottom: 1px solid var(--borders-color);
+  height: 64px;
+  line-height: 64px;
+  padding: 0 28px;
+}
+.irc-header .irc-header__search {
+    padding-top: 6px;
+}
+.irc-header .irc-header__user {
+  text-align: right;
+  padding-top: 4px;
+}

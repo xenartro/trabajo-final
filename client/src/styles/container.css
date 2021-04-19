@@ -1,0 +1,15 @@
+.container-fluid.no-margin  {
+  padding-left: 0;
+  padding-right: 0;
+  height: 100vh;
+}
+
+.container-fluid.no-margin .row {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+
+}
+.container-fluid.no-margin .no-margin{
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}

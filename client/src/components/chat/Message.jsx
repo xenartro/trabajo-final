@@ -1,11 +1,21 @@
 import ReactMarkdown from 'react-markdown';
-import './message.css';
+import User from './User';
+import 'styles/message.css';
 import { stringToMarkdown } from 'services/messages';
 
 const Message = ({ message }) => {
+  console.log(message)
   return (
-    <div>
-      {message.from}: <ReactMarkdown className="chat__message">{stringToMarkdown(message.message)}</ReactMarkdown>
+    <div className="irc__message">
+      <User  avatarOnly user={message.from} />
+      <div className="irc__message__bubble">
+        <div className="irc__message__bubble__author">
+          {message.from}:
+        </div>
+        <div className="irc__message__bubble__meesage">
+          <ReactMarkdown>{stringToMarkdown(message.message)}</ReactMarkdown>
+        </div>
+      </div>
     </div>
   )
 }
