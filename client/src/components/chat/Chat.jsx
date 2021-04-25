@@ -52,7 +52,7 @@ const Chat = () => {
               )}
 
               {target.messages.map((message, i) => (
-                message.type === 'message' ? <Message key={i} message={message} /> : <Event key={i} event={message} />
+                message.type === 'message' ? <Message key={i} message={message} previousMessage={i > 0 ? target.messages[i - 1] : null} /> : <Event key={i} event={message} />
               ))}
             </div>
           </div>

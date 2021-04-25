@@ -15,8 +15,6 @@ const Sidebar = () => {
     }
   }
 
-
-
   return (
     <div className="irc-sidebar">
       <div className="irc-sidebar__section">
@@ -25,7 +23,6 @@ const Sidebar = () => {
           <button onClick={askAndJoin}>+</button>
         </div>
         <div className="irc-sidebar__section__content">
-
             <ul className="channel-list">
               {workspace.channels.map(channel => (
                 <li className={workspace.activeChat === channel ? 'font-weight-bold' : ''} onClick={() => setActiveChat(channel)} key={channel.id}>
@@ -33,12 +30,10 @@ const Sidebar = () => {
                   <button onClick={(e) => { e.stopPropagation(); part(channel) }}>x</button>
                 </li>
               ))}
-              {workspace.channels.length == 0 &&
+              {workspace.channels.length === 0 &&
                 <p className="empty-list">No hay canales. <br/>Crea uno nuevo!</p>
               }
-
             </ul>
-
         </div>
       </div>
       <div className="irc-sidebar__section">
@@ -47,20 +42,17 @@ const Sidebar = () => {
         </div>
         <div className="irc-sidebar__section__content">
 
-        <ul className="channel-list">
-
-          {workspace.conversations.map((conversation, i) => (
-            <li className={ workspace.activeChat === conversation ? 'font-weight-bold user-item ' : 'user-item '} onClick={() => setActiveChat(conversation)} key={i}>
-              <User small user={conversation.user.nickname} color={conversation.user.color} clickable />
-              <button onClick={(e) => { e.stopPropagation(); part(conversation) }}>x</button>
-            </li>
-          ))}
-          {workspace.conversations.length == 0 &&
-            <p className="empty-list">No hay mensajes directos. <br/>Empieza un nuevo chat!</p>
-          }
-        </ul>
-
-
+          <ul className="channel-list">
+            {workspace.conversations.map((conversation, i) => (
+              <li className={ workspace.activeChat === conversation ? 'font-weight-bold user-item ' : 'user-item '} onClick={() => setActiveChat(conversation)} key={i}>
+                <User small user={conversation.user.nickname} color={conversation.user.color} clickable />
+                <button onClick={(e) => { e.stopPropagation(); part(conversation) }}>x</button>
+              </li>
+            ))}
+            {workspace.conversations.length == 0 &&
+              <p className="empty-list">No hay mensajes directos. <br/>Empieza un nuevo chat!</p>
+            }
+          </ul>
         </div>
       </div>
     </div>
