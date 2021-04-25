@@ -2,12 +2,7 @@ import ReactMarkdown from 'react-markdown';
 import 'styles/user.css';
 
 const User = ({ user, small, avatarOnly, clickable, right, color }) => {
-  let initials;
-  if(user.length > 2){
-    initials = user.substring(0,2);
-  }else {
-    initials = user
-  }
+  let initials = user.substring(0,2);
 
   var userClass = "irc-user" + (color ? " irc-user--color-"+color : "") + (right ? " irc-user--right" : "") + (small ? " irc-user--small" : "") + (avatarOnly ? " irc-user--avatar-only" : "") + (clickable ? " irc-user--clickable" : "");
 
