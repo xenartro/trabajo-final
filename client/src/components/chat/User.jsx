@@ -1,4 +1,3 @@
-import ReactMarkdown from 'react-markdown';
 import 'styles/user.css';
 
 const User = ({ user, small, avatarOnly, clickable, right, color }) => {
