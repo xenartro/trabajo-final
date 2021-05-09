@@ -3,13 +3,15 @@ import { getMessageHistory, setMessageHistory } from 'services/messages';
 
 class Channel {
   users = [];
+  messages = [];
   isChannel = true;
 
   constructor({ name, topic }) {
     this.name = name;
     this.id = `#${name}`;
     this.topic = topic;
-    this.messages = getMessageHistory(this.id);
+    getMessageHistory(this.id)
+      .then(messages => this.messages = messages);
   }
 
   get displayName() {

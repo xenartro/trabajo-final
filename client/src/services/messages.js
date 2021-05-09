@@ -1,3 +1,5 @@
+import localForage from 'localforage';
+
 /**
  * Receive a plain text message and add Markdown syntax where needed. For example
  * links.
@@ -36,8 +38,8 @@ function urlMarkdownTransformation(url) {
 /**
  * Get the message history for a given key.
  */
-export function getMessageHistory(key) {
-  const history = localStorage.getItem(`history_${key}`);
+export async function getMessageHistory(key) {
+  const history = await localForage.getItem(`history_${key}`);
 
   if (!history) {
     console.log(`Message history not found for key ${key}`);
@@ -45,20 +47,14 @@ export function getMessageHistory(key) {
     return [];
   }
 
-  try {
-    return JSON.parse(history);
-  } catch(e) {
-    console.error(e);
-  }
-
-  return [];
+  return history;
 }
 
 /**
  * Set the message history for a given key.
  */
 export function setMessageHistory(key, messages) {
-  localStorage.setItem(`history_${key}`, JSON.stringify(messages));
+  localForage.setItem(`history_${key}`, messages);
 }
 
 /**

@@ -2,9 +2,13 @@ import User from 'models/User';
 import { getMessageHistory, setMessageHistory } from 'services/messages';
 
 class Conversation {
+  messages = [];
+
   constructor({ nickname, messages = [] }) {
     this.user = User.find(nickname);
-    this.messages = getMessageHistory(this.user.nickname);
+
+    getMessageHistory(this.user.nickname)
+      .then(messages => this.messages = messages);
   }
 
   get displayName() {
