@@ -13,6 +13,7 @@ export default class User {
     this.name = name;
     this.email = email;
     this.nickname = nickname;
+    this.color = Math.floor(Math.random() * 10) + 1;
 
     users.push(this);
   }

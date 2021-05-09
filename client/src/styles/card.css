@@ -1,0 +1,8 @@
+.irc-card {
+  background-color: var(--white-color);
+  padding: 28px;
+  border-radius: 8px;
+  border: 1px solid var(--borders-color);
+  box-shadow: 0 24px 24px -16px rgba(14,20,27,0.30);
+
+}

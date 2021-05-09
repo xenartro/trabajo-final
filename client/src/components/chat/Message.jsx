@@ -1,13 +1,25 @@
 import ReactMarkdown from 'react-markdown';
 import Timestamp from './Timestamp';
-import './message.css';
+import User from './User';
+import 'styles/message.css';
 import { stringToMarkdown } from 'services/messages';
 
-const Message = ({ message }) => {
+const Message = ({ message, previousMessage }) => {
+  const hideAuthor = previousMessage && previousMessage.type === 'message' && previousMessage.from === message.from && (message.ts - previousMessage.ts) < 60;
+
   return (
-    <div>
-      <div><strong>{message.from}</strong>: <Timestamp event={message} /></div>
-      <ReactMarkdown className="chat__message">{stringToMarkdown(message.message)}</ReactMarkdown>
+    <div className="irc__message">
+      <User  avatarOnly user={message.from} />
+      <div className="irc__message__bubble">
+        {!hideAuthor && (
+          <div className="irc__message__bubble__author">
+            {message.from}: <Timestamp event={message} />
+          </div>
+        )}
+        <div className="irc__message__bubble__meesage">
+          <ReactMarkdown>{stringToMarkdown(message.message)}</ReactMarkdown>
+        </div>
+      </div>
     </div>
   )
 }

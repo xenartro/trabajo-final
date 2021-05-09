@@ -1,0 +1,15 @@
+.irc-button {
+  background-color: var(--main-color);
+  border: 0;
+  border-radius: 4px;
+  padding: 10px 24px 14px;
+
+  font-family: var(--headlines-font-family);
+  color: var(--white-color);
+  font-size: 20px;
+
+
+}
+.irc-button:hover  {
+  background-color: var(--main-hover-color);
+}

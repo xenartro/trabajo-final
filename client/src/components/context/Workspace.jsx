@@ -140,9 +140,10 @@ const WorkspaceProvider = ({ children }) => {
 
   function say(target, message) {
     if (target.isChannel && isCommand(message)) {
-      parseAndSend(message, target);
+      parseAndSend(message);
       return;
     }
+
     workspace.messageSent(user.nickname, target, message);
 
     sendMessage(target, message);

@@ -1,0 +1,27 @@
+.irc__message {
+  display: flex;
+  margin-bottom: 4px;
+}
+
+.irc__message .irc__message__bubble {
+  margin-left: 8px;
+  background-color: var(--white-color);
+
+  box-shadow: 0 5px 3px -3px rgba(28,39,53,0.07);
+  border-radius: 2px 24px 24px 24px;
+  padding: 16px 24px;
+  margin-top: 8px;
+
+}
+
+.irc__message .irc__message__bubble p:last-child {
+  margin: 0;
+  padding: 0;
+}
+
+.irc__message .irc__message__bubble .irc__message__bubble__author {
+  font-size: var(--xs-font-size);
+  line-height: var(--xs-line-height);
+  color: var(--text-medium-color);
+
+}

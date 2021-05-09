@@ -1,5 +1,6 @@
-import { Accordion, Card } from 'react-bootstrap';
 import { useWorkspace } from 'components/context/Workspace';
+import User from 'components/chat/User';
+import 'styles/sidebar.css';
 
 const Sidebar = () => {
   const { workspace, join, setActiveChat, part } = useWorkspace();
@@ -15,42 +16,46 @@ const Sidebar = () => {
   }
 
   return (
-    <Accordion defaultActiveKey="0">
-      <Card>
-        <Accordion.Toggle as={Card.Header} eventKey="0">
+    <div className="irc-sidebar">
+      <div className="irc-sidebar__section">
+        <div className="irc-sidebar__section__header">
           Canales
           <button onClick={askAndJoin}>+</button>
-        </Accordion.Toggle>
-        <Accordion.Collapse eventKey="0">
-          <Card.Body>
-            <ul>
+        </div>
+        <div className="irc-sidebar__section__content">
+            <ul className="channel-list">
               {workspace.channels.map(channel => (
                 <li className={workspace.activeChat === channel ? 'font-weight-bold' : ''} onClick={() => setActiveChat(channel)} key={channel.id}>
-                  {channel.name}
+                  #{channel.name}
                   <button onClick={(e) => { e.stopPropagation(); part(channel) }}>x</button>
                 </li>
               ))}
-              {workspace.conversations.map((conversation, i) => (
-                <li className={workspace.activeChat === conversation ? 'font-weight-bold' : ''} onClick={() => setActiveChat(conversation)} key={i}>
-                  {conversation.user.nickname}
-                  <button onClick={(e) => { e.stopPropagation(); part(conversation) }}>x</button>
-                </li>
-              ))}
+              {workspace.channels.length === 0 &&
+                <p className="empty-list">No hay canales. <br/>Crea uno nuevo!</p>
+              }
             </ul>
-          </Card.Body>
-        </Accordion.Collapse>
-      </Card>
-      <Card>
-        <Accordion.Toggle as={Card.Header} eventKey="1">
+        </div>
+      </div>
+      <div className="irc-sidebar__section">
+        <div className="irc-sidebar__section__header">
           Mensajes privados
-        </Accordion.Toggle>
-        <Accordion.Collapse eventKey="1">
-          <Card.Body>
-            Matyax (tú)
-          </Card.Body>
-        </Accordion.Collapse>
-      </Card>
-    </Accordion>
+        </div>
+        <div className="irc-sidebar__section__content">
+
+          <ul className="channel-list">
+            {workspace.conversations.map((conversation, i) => (
+              <li className={ workspace.activeChat === conversation ? 'font-weight-bold user-item ' : 'user-item '} onClick={() => setActiveChat(conversation)} key={i}>
+                <User small user={conversation.user.nickname} color={conversation.user.color} clickable />
+                <button onClick={(e) => { e.stopPropagation(); part(conversation) }}>x</button>
+              </li>
+            ))}
+            {workspace.conversations.length == 0 &&
+              <p className="empty-list">No hay mensajes directos. <br/>Empieza un nuevo chat!</p>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
   );
 }
 

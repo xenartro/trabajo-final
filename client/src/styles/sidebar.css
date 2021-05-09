@@ -1,0 +1,116 @@
+.irc-sidebar {
+  background-color: var(--white-color);
+  border-right: 1px solid var(--borders-color);
+  height: calc(100vh - 64px);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 200px;
+}
+
+.irc-sidebar__section {
+ max-height: 100%;
+ overflow: auto;
+ min-height: 120px;
+ font-size: var(--s-font-size);
+ line-height: var(--s-line-height);
+ display: flex;
+ flex-direction: column;
+ padding-bottom: 36px;
+
+}
+.irc-sidebar__section .irc-sidebar__section__header {
+  height: 32px;
+  font-size: var(--xs-font-size);
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 4px;
+  color: var(--text-medium-color);
+  width: 100%;
+  position: relative;
+}
+.irc-sidebar__section .irc-sidebar__section__header button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: none;
+  height: 24px;
+  width: 24px;
+  line-height: 26px;
+  padding: 0;
+  margin: 0;
+  background-color: var(--background-color);
+  color: var(text-medium-color);
+  font-size: 20px;
+  border-radius: 4px;
+  border: 1px solid var(--background-color);
+
+}
+.irc-sidebar__section .irc-sidebar__section__header button:hover {
+  border-color: var(--main-color);
+  color: var(--main-color);
+  background-color: var(--white-color);
+}
+
+.channel-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+
+}
+
+.channel-list  li {
+  line-height: 24px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 28px;
+  width: 100%;
+  position: relative;
+
+}
+.channel-list  li:hover {
+  background-color: var(--background-color);
+}
+.channel-list  li:hover  button{
+  display: block;
+
+}
+
+.channel-list  li button {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  border: none;
+  background-color: transparent;
+  height: 20px;
+  width: 20px;
+  line-height: 20px;
+  padding: 0;
+  margin: 0;
+  display: none;
+  color: var(--text-color);
+  border-radius: 4px;
+}
+.channel-list  li button:hover {
+  background-color: var(--main-color);
+  color: var(--white-color);
+}
+
+.channel-list  li.user-item {
+  line-height: 36px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 36px;
+}
+
+.channel-list  li.user-item button {
+  top: 8px;
+}
+
+.channel-list .empty-list {
+  padding: 4px;
+  color: var(--text-medium-color);
+}

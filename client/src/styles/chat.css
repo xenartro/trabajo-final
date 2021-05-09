@@ -1,0 +1,85 @@
+.irc-chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: calc(100vh - 72px);
+  position: relative;
+}
+
+.irc-chat-container .irc-chat-body {
+  height: 100%;
+  overflow-y: scroll;
+  padding: 36px 64px;
+  width: 100%;
+}
+.irc-chat-container .irc-chat-body .irc-chat-body__topic{
+  margin: 24px 0;
+}
+
+.irc-chat-container .irc-chat-body .chat-content {
+  max-width: 800px;
+  width: calc(100% - 240px);
+}
+.irc-chat-container .irc-chat-input {
+  height: 72px;
+  padding: 0 64px;
+}
+
+.irc-chat-container .irc-chat-input .irc-chat-input__box {
+  display: flex;
+}
+.irc-chat-container .irc-chat-input .irc-chat-input__box .irc-user {
+  margin-top: 8px;
+}
+
+.irc-chat-container .irc-chat-input .box_input {
+  margin-left: 8px;
+  width: calc(100% - 240px);
+  max-width: calc(800px - 44px);
+  position: relative;
+}
+.irc-chat-container .irc-chat-input .box_input input {
+  border: 1px solid var(--borders-color);
+  background-color: transparent;
+  width: 100%;
+
+
+
+
+  border-radius: 2px 24px 24px 24px;
+  padding: 16px 120px 16px 24px;
+}
+.irc-chat-container .irc-chat-input .box_input button {
+  position: absolute;
+  top: 10px;right: 12px;
+  z-index: 10;
+  background-color: var(--main-color);
+  color: var(--white-color);
+  border: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: var(--s-font-size);
+  height: 36px;
+  line-height: 38px;
+  padding: 0 24px;
+  border-radius: 12px;
+}
+.irc-chat-container .irc-chat-input .box_input button:hover {
+  box-shadow: 0 5px 3px -3px rgba(28,39,53,0.2);
+  background-color: var(--main-hover-color);
+}
+
+
+
+.irc-chat-container .irc-chat-input .box_input input:focus {
+  box-shadow: 0 5px 3px -3px rgba(28,39,53,0.07);
+  background-color: var(--white-color);
+  outline: 0;
+  border-color: var(--text-medium-color);
+}
+.irc-chat-container .irc-chat-input .box_input input:hover {
+  
+  background-color: var(--white-color);
+  outline: 0;
+  border-color: var(--text-medium-color);
+}

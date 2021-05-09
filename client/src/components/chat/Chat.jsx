@@ -1,13 +1,16 @@
 import Event from './Event';
 import Message from './Message';
 import UserList from './UserList';
-import { Col, Row } from 'react-bootstrap';
+import User from './User';
 import { useState, } from 'react';
+import { useUserContext } from 'components/context/User';
 import { useWorkspace } from 'components/context/Workspace';
+import 'styles/chat.css';
 
 const Chat = () => {
   const [message, setMessage] = useState('');
   const { say, workspace } = useWorkspace();
+  const { user } = useUserContext();
 
   function handleChange(e) {
     setMessage(e.currentTarget.value);
@@ -28,34 +31,57 @@ const Chat = () => {
   const target = workspace.activeChat;
 
   return (
-    <Row>
-      <Col md={target.isChannel ? 10 : 12}>
-        <h2>{target.displayName}</h2>
-        {target.topic && <h4>{target.topic}</h4>}
 
-        {target.messages.map((message, i) => (
-          message.type === 'message' ? <Message key={i} message={message} /> : <Event key={i} event={message} />
-        ))}
+        <div className="irc-chat-container">
+          {target.isChannel && (
+              <UserList channel={target} />
+          )}
+          <div className="irc-chat-body">
+            <div className="chat-content">
 
-        <form onSubmit={submit}>
-          <input type="text" value={message} onChange={handleChange} />
+              {target.isChannel && (
+                  <h1>#{target.displayName}</h1>
+              )}
+              {!target.isChannel && (
+                  <h1>{target.displayName} <User user={target.displayName}  avatarOnly/></h1>
+              )}
+              {target.topic && (
+                <div className="irc-chat-body__topic">
+                  <h3>{target.topic}</h3>
+                </div>
+              )}
 
-          <button type="submit">Enviar</button>
-        </form>
-      </Col>
-      {target.isChannel && (
-        <Col md={2}>
-          <UserList channel={target} />
-        </Col>
-      )}
-    </Row>
+              {target.messages.map((message, i) => (
+                message.type === 'message' ? <Message key={i} message={message} previousMessage={i > 0 ? target.messages[i - 1] : null} /> : <Event key={i} event={message} />
+              ))}
+            </div>
+          </div>
+          <div className="irc-chat-input">
+            <div className="irc-chat-input__box">
+              <User user={user.nickname} color="1" avatarOnly/>
+              <div className="box_input">
+                <form onSubmit={submit}>
+                  <input type="text" value={message} onChange={handleChange} />
+                  <button type="submit">Enviar</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
   )
 };
 
 function NoActiveChat() {
   return (
-    <div>
-      Seleccioná una conversación del menú o unite a un canal.
+    <div className="irc-chat-container">
+      <div className="irc-chat-body">
+        <h1>
+        Let's Chat
+        </h1>
+
+        <p>Seleccioná una conversación del menú o unite a un canal.</p>
+      </div>
     </div>
   )
 }

@@ -1,0 +1,115 @@
+.irc-user {
+  display: flex;
+  margin: 4px 0;
+
+  vertical-align: top;
+}
+
+.irc-user .irc-user__avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 22px;
+  line-height: 42px;
+  text-align: center;
+  overflow: hidden;
+  font-family: var(--headlines-font-family);
+  font-size: var(--base-font-size);
+  text-transform: uppercase;
+  background-color: var(--white-color);
+  min-width: 44px;
+  color: var(--text-transparent-color);
+
+}
+
+.irc-user .irc-user__name {
+  font-family: var(--headlines-font-family);
+  height: 44px;
+  line-height: 42px;
+  margin-left: 8px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  mix-blend-mode: multiply;
+}
+
+.irc-user.irc-user--small {
+  margin: 4px 0;
+
+}
+
+.irc-user.irc-user--small .irc-user__avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  line-height: 23px;
+  min-width: 24px;
+  font-size: var(--xs-font-size);
+}
+
+.irc-user.irc-user--small .irc-user__name {
+  height: 24px;
+  line-height: 26px;
+  font-family: var(--body-font-family);
+  font-size: var(--s-font-size);
+
+}
+
+.irc-user.irc-user--clickable {
+  cursor: pointer;
+}
+.irc-user.irc-user--clickable:hover  .irc-user__name {
+  font-weight: bold;
+}
+.irc-user.irc-user--avatar-only {
+  display: inline-block;
+}
+.irc-user.irc-user--avatar-only .irc-user__name {
+  display: none;
+}
+
+.irc-user.irc-user--right {
+  flex-direction: row-reverse;
+}
+.irc-user.irc-user--right .irc-user__name {
+  margin-right: 8px;
+  margin-left: 0;
+}
+
+.irc-user.irc-user--color-1 .irc-user__avatar {
+  background-color: var(--user-color-1);
+}
+.irc-user.irc-user--color-2 .irc-user__avatar {
+  background-color: var(--user-color-2);
+}
+.irc-user.irc-user--color-3 .irc-user__avatar {
+  background-color: var(--user-color-3);
+
+}
+.irc-user.irc-user--color-4 .irc-user__avatar {
+  background-color: var(--user-color-4);
+
+}
+.irc-user.irc-user--color-5 .irc-user__avatar {
+  background-color: var(--user-color-5);
+
+}
+.irc-user.irc-user--color-6 .irc-user__avatar {
+  background-color: var(--user-color-6);
+
+}
+.irc-user.irc-user--color-7 .irc-user__avatar {
+  background-color: var(--user-color-7);
+
+}
+.irc-user.irc-user--color-8 .irc-user__avatar {
+  background-color: var(--user-color-8);
+
+}
+.irc-user.irc-user--color-9 .irc-user__avatar {
+  background-color: var(--user-color-9);
+
+}
+.irc-user.irc-user--color-10 .irc-user__avatar {
+  background-color: var(--user-color-10);
+
+}

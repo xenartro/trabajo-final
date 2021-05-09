@@ -1,6 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import 'styles/card.css';
+import 'styles/header.css';
+import 'styles/container.css';
+import 'styles/button.css';
+import 'styles/input.css';
+
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 

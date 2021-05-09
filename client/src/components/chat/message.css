@@ -1,7 +1,0 @@
-.chat__message {
-  display: inline-block;
-}
-
-.chat__message > p {
-  margin-bottom: .25rem;
-}

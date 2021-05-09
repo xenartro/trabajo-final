@@ -4,6 +4,8 @@ import { connect } from 'services/connection';
 import { Redirect } from 'react-router-dom';
 import { useState } from 'react';
 import { useUserContext } from 'components/context/User';
+import Logo from 'images/logo.svg';
+
 
 const emptyUser = {
   name: '',
@@ -49,46 +51,54 @@ const Start = () => {
   }
 
   return (
+    <div className="center-container">
     <Layout>
-      <Row>
-        <Col md={{ offset: 3, span: 6 }}>
-          <Card>
-            <Card.Header>Iniciar sesión</Card.Header>
-            <Card.Body>
-              {state === states.ERROR && <Alert type="danger">Error al conectar.</Alert>}
 
-              <Form onSubmit={handleSubmit}>
-                <Form.Group>
-                  <Form.Label>Nombre</Form.Label>
-                  <Form.Control name="name" placeholder="Ingrese su nombre" value={user.name} onChange={handleChange} required />
-                </Form.Group>
-                <Form.Group>
-                  <Form.Label>Nickname</Form.Label>
-                  <Form.Control name="nickname" placeholder="Ingrese su sobrenombre" value={user.nickname} onChange={handleChange} required />
-                </Form.Group>
-                {state === states.READY && (
-                  <Button variant="primary" type="submit">
-                    Conectarse
-                  </Button>
-                )}
-                {state === states.CONNECTING && (
-                  <Button variant="primary" disabled>
-                    <Spinner
-                      as="span"
-                      animation="grow"
-                      size="sm"
-                      role="status"
-                      aria-hidden="true"
-                    />
-                    {' '}Conectando...
-                  </Button>
-                )}
-              </Form>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
+        <Row>
+          <Col md={{ offset: 4, span: 4 }}>
+            <img src={Logo} alt=""/>
+            <h1 className="h1">¡Hola! 😀</h1>
+            <Card bsPrefix="irc-card">
+
+              <Card.Body>
+                <h4>Inicia sesión para empezar a chatear.</h4>
+                <br/>
+                {state === states.ERROR && <Alert type="danger">Error al conectar.</Alert>}
+
+                <Form onSubmit={handleSubmit}>
+                  <Form.Group>
+                    <Form.Label bsPrefix="irc-label">Nombre</Form.Label>
+                    <Form.Control bsPrefix="irc-input" name="name" placeholder="Ingrese su nombre" value={user.name} onChange={handleChange} required />
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label bsPrefix="irc-label">Nickname</Form.Label>
+                    <Form.Control  bsPrefix="irc-input" name="nickname" placeholder="Ingrese su sobrenombre" value={user.nickname} onChange={handleChange} required />
+                  </Form.Group>
+                  {state === states.READY && (
+                    <Button bsPrefix="irc-button"  type="submit">
+                      Conectarse
+                    </Button>
+                  )}
+                  {state === states.CONNECTING && (
+                    <Button bsPrefix="irc-button"  disabled>
+                      <Spinner
+                        as="span"
+                        animation="grow"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                      />
+                      {' '}Conectando...
+                    </Button>
+                  )}
+                </Form>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+
     </Layout>
+    </div>
   )
 }
 
