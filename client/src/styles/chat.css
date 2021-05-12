@@ -42,7 +42,7 @@
   border: 1px solid var(--borders-color);
   background-color: transparent;
   width: 100%;
-
+  transition: all .3s ease-in-out;
 
 
 
@@ -75,11 +75,11 @@
   box-shadow: 0 5px 3px -3px rgba(28,39,53,0.07);
   background-color: var(--white-color);
   outline: 0;
-  border-color: var(--text-medium-color);
+
 }
 .irc-chat-container .irc-chat-input .box_input input:hover {
-  
+
   background-color: var(--white-color);
   outline: 0;
-  border-color: var(--text-medium-color);
+
 }

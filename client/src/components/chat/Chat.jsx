@@ -61,7 +61,7 @@ const Chat = () => {
               <User user={user.nickname} color="1" avatarOnly/>
               <div className="box_input">
                 <form onSubmit={submit}>
-                  <input type="text" value={message} onChange={handleChange} />
+                  <input type="text" value={message} onChange={handleChange} placeholder={"Mensaje en #" + target.displayName} />
                   <button type="submit">Enviar</button>
                 </form>
               </div>
