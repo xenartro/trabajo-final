@@ -9,11 +9,12 @@ module.exports.connect = function(user, onSuccess, onError, handleEvent) {
     return;
   }
 
-  const client = new irc.Client('irc.freenode.org', user.nickname, {
+  const client = new irc.Client('irc.undernet.org', user.nickname, {
       realName: user.name,
       debug: true,
       showErrors: true,
-      //encoding: 'UTF-8'
+      //encoding: 'UTF-8',
+      sasl: true,
   });
 
   clients[user.id] = client;
