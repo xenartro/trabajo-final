@@ -16,7 +16,7 @@ const Message = ({ message, previousMessage }) => {
             {message.from}: <Timestamp event={message} />
           </div>
         )}
-        <div className="irc__message__bubble__meesage">
+        <div className="irc__message__bubble__message">
           <ReactMarkdown>{stringToMarkdown(message.message)}</ReactMarkdown>
         </div>
       </div>
