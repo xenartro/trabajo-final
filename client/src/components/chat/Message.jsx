@@ -1,11 +1,17 @@
 import ReactMarkdown from 'react-markdown';
 import Timestamp from './Timestamp';
 import User from './User';
+import { notify, stringToMarkdown } from 'services/messages';
+import { useUserContext } from 'components/context/User';
 import 'styles/message.css';
-import { stringToMarkdown } from 'services/messages';
 
 const Message = ({ message, previousMessage }) => {
   const hideAuthor = previousMessage && previousMessage.type === 'message' && previousMessage.from === message.from && (message.ts - previousMessage.ts) < 60;
+  const { user } = useUserContext();
+
+  if (message.userMentioned && message.userMentioned(user)) {
+    notify(`${message.from} te mencionó`);
+  }
 
   return (
     <div className="irc__message">

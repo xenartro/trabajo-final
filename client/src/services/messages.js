@@ -12,6 +12,26 @@ export function stringToMarkdown(message) {
   return message;
 }
 
+export function notify(message) {
+  if (!("Notification" in window)) {
+    return false;
+  }
+
+  if (Notification.permission === "granted") {
+     new Notification(message);
+
+     return true;
+  }
+
+  if (Notification.permission !== "denied") {
+    Notification.requestPermission().then(function (permission) {
+      if (permission === "granted") {
+        new Notification(message);
+      }
+    });
+  }
+}
+
 function applyRegexTransformation(message, regex, transformation) {
   const matches = regex.exec(message);
 

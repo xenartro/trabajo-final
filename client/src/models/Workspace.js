@@ -1,6 +1,7 @@
 import Channel from './Channel';
 import Conversation from './Conversation';
 import dayjs from 'dayjs';
+import Message from './Message';
 import User from './User';
 
 class Workspace {
@@ -114,21 +115,21 @@ class Workspace {
       target = to.charAt(0) === '#' ? this.join(to.replace('#', '')) : this.startConversation(from);
     }
 
-    target.addMessage({
+    target.addMessage(new Message({
       type: 'message',
       from,
       message,
       ts: dayjs().unix(),
-    });
+    }));
   }
 
   messageSent(from, target, message) {
-    target.addMessage({
+    target.addMessage(new Message({
       type: 'message',
       from,
       message,
       ts: dayjs().unix(),
-    });
+    }));
   }
 
   receivedUserList(channelName, nicknames) {
