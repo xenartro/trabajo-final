@@ -1,5 +1,24 @@
 import localForage from 'localforage';
 
+export async function searchMessages(text) {
+  const results = [];
+
+  await localForage.iterate(function (messages, key) {
+    const channel = key.split('#')[1];
+
+    const result = {
+      channel,
+      messages: messages.filter(message => (message.type === 'message' && message.message.includes(text)))
+    };
+
+    if (result.messages.length > 0) {
+      results.push(result);
+    }
+  });
+
+  return results;
+}
+
 /**
  * Receive a plain text message and add Markdown syntax where needed. For example
  * links.
